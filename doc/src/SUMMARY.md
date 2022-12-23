@@ -6,6 +6,8 @@
 
 # Architecture
 
+- [Overview](./arch/overview.md)
+
 # User manual
 
 # Administration notes
