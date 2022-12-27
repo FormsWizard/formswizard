@@ -34,6 +34,16 @@
 | **TigerGraph/GSQL [55]**    | 8                        | [n]/[e]                                                          | -                    | [-]                             | c                        | n/e                 | [m]/[o]                            | X                              | [X]                  | X                   | -                            | [-]                    | [X]                    | [X]                      | -                       | X                               | f        |
 | **TypeDB/TypeQL [58]**      | 5                        | -                                                                | n/e/p                | n/e/p                           | c                        | n/e                 | m                                  | X                              | [X]                  | X                   | X                            | [-]                    | X                      | [-]                      | -                       | X                               | f        |
 
+**Legend**: 
+ - ‘X’ = supported
+ - ‘-’ = not supported
+ - ‘?’ = unknown
+ - ['x'] = qualified x,
+ - n/e/p = supported for (n)odes, (e)dges, and (p)roperties
+ - o/c = (o)pen and (c)losed
+ - m/o = (m)andatory and (o)ptional
+ - f/p/x = schema (f)irst, (p)artial, and fle(x)ible
+
 
 This information has been extracted from the following research paper: Angles et al., “PG-Schema.”[^pgschema]
 
