@@ -7,6 +7,9 @@
 # Architecture
 
 - [Overview](./arch/overview.md)
+- [Backends](./arch/backends.md)
+- [Datastructures](./arch/datastructures.md)
+- [Backend-Wrapper](./arch/backend_wrapper.md)
 
 # User manual
 

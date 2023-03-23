@@ -33,7 +33,12 @@ flowchart TB
       db[(Database)]
     end
 
+    plugin
+
     wizard -- 2. store forms --> db
     forms <-- 3. load forms<br/> 5. store dataset --> db
     processing <-- 6. load datasets + forms metadata<br/> 8. store updated datasets --> db
+
+    backend -- 9. webhook --> plugin
+    plugin <-- 10. API --> backend
 ```
