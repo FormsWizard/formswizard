@@ -1,3 +1,11 @@
+'use client';
+
+import { WizardApp } from '@formswizard/forms-designer'
+
 export default function New() {
-  return <div>Forms Generator</div>
+  return (
+    <div>
+      <WizardApp />
+    </div>
+  );
 }
