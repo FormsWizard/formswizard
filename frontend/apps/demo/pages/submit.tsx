@@ -1,3 +1,7 @@
+import { Outer } from 'submit';
+
 export default function Submit() {
-  return <div>Form</div>
+  return <>
+    <Outer/>
+  </>
 }
