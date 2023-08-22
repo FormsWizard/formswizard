@@ -1,5 +1,5 @@
 {
-  "name": "submit",
+  "name": "pgp-provider",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -18,16 +18,6 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@formswizard/state": "workspace:^",
-    "@jsonforms/core": "^3.1.0",
-    "@jsonforms/material-renderers": "^3.1.0",
-    "@jsonforms/react": "^3.1.0",
-    "@mui/icons-material": "^5.14.0",
-    "@mui/material": "^5.14.5",
-    "@mui/x-date-pickers": "^6.10.0",
-    "openpgp": "^5.9.0",
-    "react-redux": "^8.1.1"
+    "openpgp": "^5.9.0"
   }
 }
