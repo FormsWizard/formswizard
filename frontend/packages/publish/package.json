@@ -1,5 +1,5 @@
 {
-  "name": "submit",
+  "name": "publish",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -12,21 +12,14 @@
     "@types/react-dom": "^18.2.0",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
+    "project-state": "workspace:*",
     "react": "^17.0.2",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "project-state": "workspace:^",
+    "@formswizard/state": "workspace:^",
     "project-state-demo-yjs": "workspace:^",
-    "@jsonforms/core": "^3.1.0",
-    "@jsonforms/material-renderers": "^3.1.0",
-    "@jsonforms/react": "^3.1.0",
-    "@mui/icons-material": "^5.14.0",
-    "@mui/material": "^5.14.5",
-    "@mui/x-date-pickers": "^6.10.0",
     "react-redux": "^8.1.1"
   }
 }

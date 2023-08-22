@@ -1,5 +1,5 @@
 {
-  "name": "submit",
+  "name": "project-state",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -8,6 +8,7 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.197",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.0",
     "eslint": "^7.32.0",
@@ -17,16 +18,9 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "project-state": "workspace:^",
-    "project-state-demo-yjs": "workspace:^",
     "@jsonforms/core": "^3.1.0",
-    "@jsonforms/material-renderers": "^3.1.0",
-    "@jsonforms/react": "^3.1.0",
-    "@mui/icons-material": "^5.14.0",
-    "@mui/material": "^5.14.5",
-    "@mui/x-date-pickers": "^6.10.0",
-    "react-redux": "^8.1.1"
+    "@reduxjs/toolkit": "^1.9.5",
+    "lodash": "^4.17.21",
+    "redux-yjs-bindings": "^0.3.1"
   }
 }

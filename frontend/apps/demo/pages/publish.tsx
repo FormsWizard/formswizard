@@ -1,5 +1,5 @@
 import { PGPProvider, useKeyContext, encrypt, decrypt } from 'pgp-provider';
-import { useEffect, useState } from 'react';
+import { Publish } from 'publish';
 
 function KeyInfo() {
   const { keyId } = useKeyContext();
@@ -13,11 +13,13 @@ function EncryptionExample() {
   return <>{ decrypt(encrypted) }</>
 }
 
-export default function Publish() {
-  return <PGPProvider>
-    <>
+export default function Publish_() {
+  return <>
+    <Publish/>
+
+    <PGPProvider>
       <KeyInfo/>
       <EncryptionExample/>
-    </>
-  </PGPProvider>
+    </PGPProvider>
+  </>
 }
