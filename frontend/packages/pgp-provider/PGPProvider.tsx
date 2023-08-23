@@ -48,8 +48,8 @@ export function PGPProvider({generateKeyOptions={}, children}: {generateKeyOptio
             try {
               privateKey = await decryptKey({ privateKey, passphrase });
             } catch (e) {
-              console.error(e)
-              console.warn('You might want to delete the key from localStorage')
+              console.error('You might want to delete the key from localStorage.')
+              console.warn(e)
 	    }
 	  }
           setKeyPair({
@@ -73,19 +73,22 @@ export function PGPProvider({generateKeyOptions={}, children}: {generateKeyOptio
   )
 }
 
-export function encrypt(text: string) {
-  const {publicKey: encryptionKeys} = useKeyContext();
+export function encrypt(text: string, armoredPubKeys?: string[]) {
+  const {publicKey} = useKeyContext();  // The users publicKey will used in addition to the optionally specified armoredPubKeys
   const [encrypted, setEncrypted] = useState<string>();
 
   useEffect(() => {
     const asyncEffect = async () => {
-      if(encryptionKeys) {
+      const pubKeys = await Promise.all( (armoredPubKeys||[]).map( async armoredKey => await readKey({armoredKey}) ))
+      const encryptionKeys = publicKey ? [publicKey, ...pubKeys] : pubKeys;
+
+      if(encryptionKeys.length) {
         const message = await createMessage({ text });
         pgp_encrypt({message, encryptionKeys}).then(x => setEncrypted(x.toString()));
       }
     };
     asyncEffect();
-  }, [text, encryptionKeys, setEncrypted]);
+  }, [text, publicKey, setEncrypted]);
 
   return encrypted;
 };
@@ -98,7 +101,10 @@ export function decrypt(armoredMessage?: string) {
     const asyncEffect = async () => {
       if(decryptionKeys && armoredMessage) {
         const message = await readMessage({ armoredMessage });
-        pgp_decrypt({ message, decryptionKeys }).then(x => setDecrypted(x.data.toString()))
+        pgp_decrypt({ message, decryptionKeys })
+	.then(x => setDecrypted(x.data.toString()))
+	.catch(e => { console.error('Decryption failed. Do you have a correct privateKey?')
+                      console.warn(e) })
       }
     };
     asyncEffect();

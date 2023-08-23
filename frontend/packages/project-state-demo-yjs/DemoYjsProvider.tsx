@@ -10,6 +10,10 @@ export function DemoYjsProvider({children, store}: PropsWithChildren<Props>) {
   const initialYState: Partial<YState> = {slices: [{store, slice: 'schema', logging: true,
                                                     providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
                                                                                    password: 'TODO'}},
+                                                                websocket: {url: 'ws://localhost:1234'}}},
+                                                   {store, slice: 'keys', logging: true,
+                                                    providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
+                                                                                   password: 'TODO'}},
                                                                 websocket: {url: 'ws://localhost:1234'}}} ]}
 
   return (

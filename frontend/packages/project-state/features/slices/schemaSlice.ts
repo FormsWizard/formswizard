@@ -16,7 +16,7 @@ export const schemaSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setJsonSchema: (state: SchemaState, action: PayloadAction<JsonSchema>) => { 
+    setJsonSchema: (state: SchemaState, action: PayloadAction<JsonSchema>) => {
       state.jsonSchema = action.payload;
     }
   }

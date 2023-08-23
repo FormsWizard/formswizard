@@ -2,15 +2,16 @@
 
 import { useCallback, useState } from 'react';
 import { Provider } from "react-redux";
-import { store, useAppSelector, selectJsonSchema, selectUiSchema } from 'project-state';
+import { store, useAppSelector, selectJsonSchema, selectUiSchema, selectPubKeys } from 'project-state';
 import { DemoYjsProvider } from 'project-state-demo-yjs';
 import { JsonForms } from '@jsonforms/react';
 import {
   materialRenderers,
   materialCells,
 } from '@jsonforms/material-renderers';
+import { PGPProvider, encrypt, decrypt } from 'pgp-provider';
 
-function Inner() {
+function Form() {
   const jsonSchema = useAppSelector(selectJsonSchema);
   const uiSchema = useAppSelector(selectUiSchema);
   const [data, setData] = useState({});
@@ -33,11 +34,20 @@ function Inner() {
   )
 }
 
-export function Outer() {
+function EncryptionExample() {
+  const pubKeys = useAppSelector(selectPubKeys);
+  const encrypted = encrypt('Hallo PGP', pubKeys);
+  return <>{ decrypt(encrypted) }</>
+}
+
+export function Submit() {
   return (
     <Provider store={store}>
       <DemoYjsProvider store={store}>
-        <Inner/>
+        <Form/>
+        <PGPProvider>
+          <EncryptionExample/>
+        </PGPProvider>
       </DemoYjsProvider>
     </Provider>
   );

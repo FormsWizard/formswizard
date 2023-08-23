@@ -1,7 +1,3 @@
-import { Outer } from 'submit';
+import { Submit } from 'submit';
 
-export default function Submit() {
-  return <>
-    <Outer/>
-  </>
-}
+export default Submit

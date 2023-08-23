@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import schemaReducer from '../slices/schemaSlice';
-import { enhanceReducer } from 'redux-yjs-bindings';
+import keysReducer from '../slices/keysSlice';
+import { enhanceReducer } from 'react-redux-yjs';
 
 export const store = configureStore({
   reducer: {
-    schema: enhanceReducer(schemaReducer),
+    schema: enhanceReducer(schemaReducer, 'schema'),
+    keys: enhanceReducer(keysReducer, 'keys'),
   },
 });
 

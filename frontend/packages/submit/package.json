@@ -19,14 +19,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "project-state": "workspace:^",
-    "project-state-demo-yjs": "workspace:^",
     "@jsonforms/core": "^3.1.0",
     "@jsonforms/material-renderers": "^3.1.0",
     "@jsonforms/react": "^3.1.0",
     "@mui/icons-material": "^5.14.0",
     "@mui/material": "^5.14.5",
     "@mui/x-date-pickers": "^6.10.0",
+    "pgp-provider": "workspace:^",
+    "project-state": "workspace:^",
+    "project-state-demo-yjs": "workspace:^",
     "react-redux": "^8.1.1"
   }
 }
