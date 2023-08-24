@@ -73,19 +73,24 @@ export function PGPProvider({generateKeyOptions={}, children}: {generateKeyOptio
   )
 }
 
-export function encrypt(text: string, armoredPubKeys?: string[]) {
+export async function encrypt(text: string, armoredPubKeys?: string[], publicKey?: PublicKey) {
+  const pubKeys = await Promise.all( (armoredPubKeys||[]).map( async armoredKey => await readKey({armoredKey}) ))
+  const encryptionKeys = publicKey ? [publicKey, ...pubKeys] : pubKeys;
+
+  if(encryptionKeys.length) {
+    const message = await createMessage({ text });
+    return (await pgp_encrypt({message, encryptionKeys})).toString()
+  }
+}
+
+export function encryptUsingContext(text: string, armoredPubKeys?: string[]) {
   const {publicKey} = useKeyContext();  // The users publicKey will used in addition to the optionally specified armoredPubKeys
   const [encrypted, setEncrypted] = useState<string>();
 
   useEffect(() => {
     const asyncEffect = async () => {
-      const pubKeys = await Promise.all( (armoredPubKeys||[]).map( async armoredKey => await readKey({armoredKey}) ))
-      const encryptionKeys = publicKey ? [publicKey, ...pubKeys] : pubKeys;
-
-      if(encryptionKeys.length) {
-        const message = await createMessage({ text });
-        pgp_encrypt({message, encryptionKeys}).then(x => setEncrypted(x.toString()));
-      }
+      const encrypted = await encrypt(text, armoredPubKeys, publicKey);
+      setEncrypted(encrypted);
     };
     asyncEffect();
   }, [text, publicKey, setEncrypted]);
@@ -93,7 +98,7 @@ export function encrypt(text: string, armoredPubKeys?: string[]) {
   return encrypted;
 };
 
-export function decrypt(armoredMessage?: string) {
+export function decryptUsingContext(armoredMessage?: string) {
   const {privateKey: decryptionKeys} = useKeyContext();
   const [decrypted, setDecrypted] = useState<string>();
 

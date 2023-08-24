@@ -2,18 +2,17 @@
 
 import { useCallback, useState } from 'react';
 import { Provider } from "react-redux";
-import { store, useAppSelector, selectJsonSchema, selectUiSchema, selectPubKeys } from 'project-state';
+import { store, useAppSelector, selectJsonSchema, selectUiSchema, selectPubKeys, useAppDispatch, setCryptedData, selectCryptedData } from 'project-state';
 import { DemoYjsProvider } from 'project-state-demo-yjs';
 import { JsonForms } from '@jsonforms/react';
 import {
   materialRenderers,
   materialCells,
 } from '@jsonforms/material-renderers';
-import { PGPProvider, encrypt, decrypt } from 'pgp-provider';
+import { PGPProvider, encrypt, useKeyContext } from 'pgp-provider';
+import Button from '@mui/material/Button'
 
 function Form() {
-  const jsonSchema = useAppSelector(selectJsonSchema);
-  const uiSchema = useAppSelector(selectUiSchema);
   const [data, setData] = useState({});
 
   const onChange = useCallback( ({errors, data}: {errors: any[], data: any}) => {
@@ -22,7 +21,27 @@ function Form() {
     };
   }, []);
 
-  return (
+  const pubKeys = useAppSelector(selectPubKeys);
+  const { keyId, armoredPublicKey, publicKey } = useKeyContext();
+  const dispatch = useAppDispatch();
+
+  const onSubmit = useCallback( async () => {
+    const encrypted = await encrypt(JSON.stringify(data), pubKeys, publicKey);  // TODO add signature
+    if(encrypted && keyId && armoredPublicKey) {
+      const cryptedData = { data: encrypted,
+                            uuid: crypto.randomUUID(),
+                            keyId, armoredPublicKey };
+      console.info({cryptedData});
+      dispatch(setCryptedData(cryptedData));
+    }
+  }, [data])
+  const cryptedDataPublished = useAppSelector(selectCryptedData);
+  console.log({cryptedDataPublished});
+
+  const jsonSchema = useAppSelector(selectJsonSchema);
+  const uiSchema = useAppSelector(selectUiSchema);
+
+  return <>
     <JsonForms
       renderers={materialRenderers}
       cells={materialCells}
@@ -31,22 +50,18 @@ function Form() {
       data={data}
       onChange={onChange}
     />
-  )
-}
-
-function EncryptionExample() {
-  const pubKeys = useAppSelector(selectPubKeys);
-  const encrypted = encrypt('Hallo PGP', pubKeys);
-  return <>{ decrypt(encrypted) }</>
+    <Button variant="contained" onClick={onSubmit}>
+      Submit
+    </Button>
+  </>
 }
 
 export function Submit() {
   return (
     <Provider store={store}>
       <DemoYjsProvider store={store}>
-        <Form/>
         <PGPProvider>
-          <EncryptionExample/>
+          <Form/>
         </PGPProvider>
       </DemoYjsProvider>
     </Provider>

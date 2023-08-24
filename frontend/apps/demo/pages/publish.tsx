@@ -1,4 +1,4 @@
-import { PGPProvider, useKeyContext, encrypt, decrypt } from 'pgp-provider';
+import { PGPProvider, useKeyContext, encryptUsingContext, decryptUsingContext } from 'pgp-provider';
 import { Publish } from 'publish';
 
 function KeyInfo() {
@@ -9,8 +9,8 @@ function KeyInfo() {
 }
 
 function EncryptionExample() {
-  const encrypted = encrypt('Hallo PGP');
-  return <>{ decrypt(encrypted) }</>
+  const encrypted = encryptUsingContext('Hallo PGP');
+  return <>{ decryptUsingContext(encrypted) }</>
 }
 
 export default function Publish_() {

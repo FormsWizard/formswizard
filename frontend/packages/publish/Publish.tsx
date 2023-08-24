@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { Provider } from "react-redux";
-import { store, useAppDispatch, setJsonSchema, setPubKeys, useAppSelector, selectJsonSchema } from 'project-state';
+import { store, useAppDispatch, setJsonSchema, setPubKeys, /*useAppSelector, selectJsonSchema*/ } from 'project-state';
 import { makeStore } from '@formswizard/state';
 import { DemoYjsProvider } from 'project-state-demo-yjs';
 import { PGPProvider, useKeyContext } from 'pgp-provider';
