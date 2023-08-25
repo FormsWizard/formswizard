@@ -40,10 +40,10 @@ importers:
         version: 13.4.1(react-dom@18.2.0)(react@18.2.0)
       pgp-provider:
         specifier: workspace:*
-        version: link:../../packages/pgp-provider
+        version: link:../../packages-processing/pgp-provider
       project-state:
         specifier: workspace:*
-        version: link:../../packages/project-state
+        version: link:../../packages-processing/project-state
       publish:
         specifier: workspace:*
         version: link:../../packages/publish
@@ -74,77 +74,6 @@ importers:
         version: link:../../packages-processing/tsconfig
       typescript:
         specifier: ^4.5.3
-        version: 4.9.5
-
-  packages/pgp-provider:
-    dependencies:
-      openpgp:
-        specifier: ^5.9.0
-        version: 5.9.0
-    devDependencies:
-      '@types/react':
-        specifier: ^18.2.20
-        version: 18.2.20
-      '@types/react-dom':
-        specifier: ^18.2.0
-        version: 18.2.7
-      eslint:
-        specifier: ^7.32.0
-        version: 7.32.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages-processing/eslint-config-custom
-      react:
-        specifier: ^17.0.2
-        version: 17.0.2
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages-processing/tsconfig
-      typescript:
-        specifier: ^4.5.2
-        version: 4.9.5
-
-  packages/project-state:
-    dependencies:
-      '@jsonforms/core':
-        specifier: ^3.1.0
-        version: 3.1.0
-      '@reduxjs/toolkit':
-        specifier: ^1.9.5
-        version: 1.9.5(react-redux@8.1.1)(react@17.0.2)
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      redux-yjs-bindings:
-        specifier: ^0.3.1
-        version: 0.3.1
-    devDependencies:
-      '@types/lodash':
-        specifier: ^4.14.197
-        version: 4.14.197
-      '@types/react':
-        specifier: ^18.2.20
-        version: 18.2.20
-      '@types/react-dom':
-        specifier: ^18.2.0
-        version: 18.2.7
-      eslint:
-        specifier: ^7.32.0
-        version: 7.32.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages-processing/eslint-config-custom
-      react:
-        specifier: ^17.0.2
-        version: 17.0.2
-      react-redux-yjs:
-        specifier: workspace:*
-        version: link:../../packages-processing/react-redux-yjs
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages-processing/tsconfig
-      typescript:
-        specifier: ^4.5.2
         version: 4.9.5
 
   packages/project-state-demo-yjs:
@@ -222,10 +151,10 @@ importers:
         version: link:../../packages-processing/eslint-config-custom
       pgp-provider:
         specifier: workspace:*
-        version: link:../pgp-provider
+        version: link:../../packages-processing/pgp-provider
       project-state:
         specifier: workspace:*
-        version: link:../project-state
+        version: link:../../packages-processing/project-state
       react:
         specifier: ^17.0.2
         version: 17.0.2
@@ -265,15 +194,12 @@ importers:
       '@mui/x-date-pickers':
         specifier: ^6.10.0
         version: 6.10.0(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/base@5.0.0-beta.8)(@mui/material@5.14.5)(@mui/system@5.14.5)(dayjs@1.10.6)(react-dom@18.2.0)(react@17.0.2)
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       pgp-provider:
         specifier: workspace:^
-        version: link:../pgp-provider
+        version: link:../../packages-processing/pgp-provider
       project-state:
         specifier: workspace:^
-        version: link:../project-state
+        version: link:../../packages-processing/project-state
       project-state-demo-yjs:
         specifier: workspace:^
         version: link:../project-state-demo-yjs
@@ -281,9 +207,6 @@ importers:
         specifier: ^8.1.1
         version: 8.1.1(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@17.0.2)
     devDependencies:
-      '@types/lodash':
-        specifier: ^4.14.197
-        version: 4.14.197
       '@types/react':
         specifier: ^18.2.20
         version: 18.2.20
@@ -1269,10 +1192,6 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: false
 
-  /@types/lodash@4.14.197:
-    resolution: {integrity: sha512-BMVOiWs0uNxHVlHBgzTIqJYmj+PgCo4euloGF+5m4okL3rEYzM2EEv78mw8zWSMM57dM7kVIgJ2QDvwHSoCI5g==}
-    dev: true
-
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
     dev: true
@@ -1491,15 +1410,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /asn1.js@5.4.1:
-    resolution: {integrity: sha512-+I//4cYPccV8LdmBLiX8CYvf9Sp3vQsrqu2QNXRcrbiWvcx/UdlFiqUJJzxRQxgsZmvhXhn4cSKeSmoFjVdupA==}
-    dependencies:
-      bn.js: 4.12.0
-      inherits: 2.0.4
-      minimalistic-assert: 1.0.1
-      safer-buffer: 2.1.2
-    dev: false
-
   /astral-regex@2.0.0:
     resolution: {integrity: sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==}
     engines: {node: '>=8'}
@@ -1539,10 +1449,6 @@ packages:
       inherits: 2.0.4
       readable-stream: 3.6.2
     dev: true
-
-  /bn.js@4.12.0:
-    resolution: {integrity: sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==}
-    dev: false
 
   /brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -2760,10 +2666,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /minimalistic-assert@1.0.1:
-    resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
-    dev: false
-
   /minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
     dependencies:
@@ -2925,13 +2827,6 @@ packages:
     dependencies:
       mimic-fn: 2.1.0
     dev: true
-
-  /openpgp@5.9.0:
-    resolution: {integrity: sha512-wEI6TAinCAq8ZLZA4oZ3ZtJ2BhhHj+CiPCd8TzE7zCicr0V8tvG5UF76OtddLLOJcK63w3Aj3KiRd+VLMScirQ==}
-    engines: {node: '>= 8.0.0'}
-    dependencies:
-      asn1.js: 5.4.1
-    dev: false
 
   /optionator@0.9.3:
     resolution: {integrity: sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==}
@@ -3386,6 +3281,7 @@ packages:
 
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+    dev: true
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
