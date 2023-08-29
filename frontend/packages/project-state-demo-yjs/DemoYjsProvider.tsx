@@ -28,7 +28,7 @@ export function DemoYjsProvider({children, store}: PropsWithChildren<Props>) {
 
   return (
     <YProvider initialYState={initialYState}>
-      {children}
+      <>{children as any}</>
     </YProvider>
   )
 }

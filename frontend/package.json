@@ -7,12 +7,12 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@turbo/gen": "^1.9.7",
-    "eslint": "^7.32.0",
+    "@turbo/gen": "^1.10.13",
+    "eslint": "^8.48.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "^2.5.1",
+    "prettier": "^3.0.2",
     "tsup": "^7.2.0",
-    "turbo": "latest"
+    "turbo": "^1.10.13"
   },
   "packageManager": "pnpm@8.6.10"
 }
