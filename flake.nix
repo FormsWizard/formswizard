@@ -11,9 +11,12 @@
     pkgs = import nixpkgs {inherit system;};
     inherit (pkgs) lib;
   in rec {
-    devShell.${system} = devShells.${system}."doc";  ## will be changed
     devShells.${system}."doc" = import ./doc/shell.nix { inherit pkgs; };
+    #devShell.${system} = devShells.${system}."doc";  ## will be changed
 
-    legacyPackages.${system} = { inherit pkgs; };
+    packages.${system} = { 
+      frontend = import ./frontend { inherit pkgs; };
+    };
+    defaultPackage.${system} = packages.${system}.frontend;
   };
 }
