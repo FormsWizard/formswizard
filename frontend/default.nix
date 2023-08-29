@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, formsDesigner, processing }:
 
 let
 in pkgs.mkShell {
@@ -10,8 +10,10 @@ in pkgs.mkShell {
     echo Dependencies are being copied…
     rm -r packages-forms-designer || true
     rm -r packages-processing || true
-    cp -r ../../forms-designer/packages packages-forms-designer
-    cp -r ../../fw-processing/packages packages-processing
+    cp -r ${formsDesigner}/packages packages-forms-designer
+    cp -r ${processing}/packages packages-processing
+    chmod -R +w packages-forms-designer
+    chmod -R +w packages-processing
     rm -r packages-forms-designer/tsconfig
     rm -r packages-forms-designer/eslint-config-custom
 
@@ -22,5 +24,6 @@ in pkgs.mkShell {
     cd apps/cra
 
     pnpm dev
+    exit
   '';
 }

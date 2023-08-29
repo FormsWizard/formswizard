@@ -37,3 +37,6 @@ yarn-error.log*
 
 # backup
 *~
+
+# external turbo packages (copied by `nix develop`)
+/packages-*
