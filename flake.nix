@@ -2,9 +2,11 @@
   description = "Forms Wizard";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    formsDesigner.url = "github:FormsWizard/forms-designer/main";
-    processing.url = "github:FormsWizard/processing/main";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    formsDesigner = { url = "github:FormsWizard/forms-designer/9a7aeba";
+                      inputs.nixpkgs.follows = "nixpkgs"; };
+    processing = { url = "github:FormsWizard/processing/main";
+                   inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs = { self, nixpkgs, formsDesigner, processing, ... }:

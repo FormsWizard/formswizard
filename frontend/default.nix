@@ -2,6 +2,12 @@
 
 let
 in pkgs.mkShell {
+  buildInputs = with pkgs; [
+    nodejs_latest
+    nodePackages_latest.pnpm
+    python3
+    xdg_utils
+  ];
   shellHook = ''
     set -e
 
@@ -19,6 +25,13 @@ in pkgs.mkShell {
 
     pnpm i
     pnpm build
+
+
+    packages-processing/react-redux-yjs/node_modules/y-websocket/bin/server.js &
+
+
+    (cd apps/demo/out; python -m http.server || true) &
+    xdg-open http://localhost:8000/ &
 
 
     cd apps/cra
