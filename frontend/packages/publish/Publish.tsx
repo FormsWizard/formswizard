@@ -21,7 +21,7 @@ function PublishFormsState() {
 
   const jsonSchemaPublished = useAppSelector(selectJsonSchema);
   console.log({jsonSchemaPublished})
-  return <></>
+  return null
 }
 
 function PublishPubKey() {
@@ -32,7 +32,7 @@ function PublishPubKey() {
     armoredPublicKey && dispatch(setPubKeys([armoredPublicKey]));
   }, [armoredPublicKey]);
 
-  return <></>
+  return null
 }
 
 export function Publish() {
