@@ -20,7 +20,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@formswizard/state": "workspace:^",
+    "@formswizard/forms-designer": "workspace:^",
+    "@jsonforms/core": "^3.1.0",
+    "@mui/material": "^5.14.7",
     "project-state-demo-yjs": "workspace:^",
     "react-redux": "^8.1.2"
   }

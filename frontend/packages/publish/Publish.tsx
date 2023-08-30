@@ -1,30 +1,15 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Provider } from "react-redux";
-import { store, useAppDispatch, setJsonSchema, setPubKeys, useAppSelector, selectJsonSchema } from 'project-state';
-import { makeStore } from '@formswizard/state';
+import { store, useAppDispatch, setJsonSchema, setUiSchema, setSchemaState, setPubKeys, useAppSelector, selectJsonSchema } from 'project-state';
+import { WizardProvider, useWizard } from '@formswizard/forms-designer'
 import { DemoYjsProvider } from 'project-state-demo-yjs';
 import { PGPProvider, useKeyContext } from 'pgp-provider';
-//import { ConnectionIndicatorMenu } from 'secured-react-redux-yjs';
+import { NoSsr } from '@mui/material';
+import { JsonSchema, UISchemaElement } from '@jsonforms/core';
 
-const storeFormsDesigner = makeStore()
-
-/** Copy schema between stores — TODO: this should not be required after forms-designer has been adapted **/
-function PublishFormsState() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const { jsonSchema, uiSchema } = storeFormsDesigner.getState().jsonFormsEdit
-    dispatch(setJsonSchema(jsonSchema));
-  }, []);
-
-  const jsonSchemaPublished = useAppSelector(selectJsonSchema);
-  console.log({jsonSchemaPublished})
-  return <></>
-}
-
-function PublishPubKey() {
+function PublishPubKeyToYjs() {
   const dispatch = useAppDispatch();
   const { armoredPublicKey } = useKeyContext();
 
@@ -35,16 +20,42 @@ function PublishPubKey() {
   return <></>
 }
 
-export function Publish() {
+function PublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    //jsonSchema && dispatch(setSchemaState({jsonSchema, uiSchema}));
+    jsonSchema && dispatch(setJsonSchema(jsonSchema));
+    uiSchema && dispatch(setUiSchema(uiSchema));
+    console.log('publish', {jsonSchema, uiSchema})
+  }, [jsonSchema, uiSchema]);
+
+  //const jsonSchemaPublished = useAppSelector(selectJsonSchema);
+  //console.log({jsonSchema, jsonSchemaPublished})
+  return <></>
+}
+
+function PublishFromWizardProvider() {
+  const { jsonSchema, uiSchema } = useWizard()
+
   return (
     <Provider store={store}>
       <DemoYjsProvider store={store}>
-        {/*<ConnectionIndicatorMenu/>*/}
-        <PublishFormsState/>
+        <PublishSchemaToYjs jsonSchema={jsonSchema} uiSchema={uiSchema}/>
         <PGPProvider>
-	  <PublishPubKey/>
+          <PublishPubKeyToYjs/>
         </PGPProvider>
       </DemoYjsProvider>
     </Provider>
+  )
+}
+
+export function Publish() {
+  return (
+    <NoSsr>
+      <WizardProvider>
+        <PublishFromWizardProvider/>
+      </WizardProvider>
+    </NoSsr> 
   );
 };

@@ -11,6 +11,7 @@ import {
 } from '@jsonforms/material-renderers';
 import { PGPProvider, encrypt, useKeyContext } from 'pgp-provider';
 import Button from '@mui/material/Button'
+import { NoSsr } from '@mui/material';
 
 function Form() {
   const [data, setData] = useState({});
@@ -40,8 +41,9 @@ function Form() {
 
   const jsonSchema = useAppSelector(selectJsonSchema);
   const uiSchema = useAppSelector(selectUiSchema);
+  console.log({jsonSchema})
 
-  return <>
+  return !jsonSchema ? <p>'Loading jsonSchema…'</p> : <>
     <JsonForms
       renderers={materialRenderers}
       cells={materialCells}
@@ -58,12 +60,14 @@ function Form() {
 
 export function Submit() {
   return (
-    <Provider store={store}>
-      <DemoYjsProvider store={store}>
-        <PGPProvider>
-          <Form/>
-        </PGPProvider>
-      </DemoYjsProvider>
-    </Provider>
+    <NoSsr>
+      <Provider store={store}>
+        <DemoYjsProvider store={store}>
+          <PGPProvider>
+            <Form/>
+          </PGPProvider>
+        </DemoYjsProvider>
+      </Provider>
+    </NoSsr>
   );
 };
