@@ -40,3 +40,6 @@ yarn-error.log*
 
 # external turbo packages (copied by `nix develop`)
 /packages-*
+
+# tsup
+dist/

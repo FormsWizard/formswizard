@@ -7,7 +7,7 @@ function Inner() {
   return <></>
 }
 
-export const App = () => {
+export const New = () => {
   return <>
     <WizardProvider>
       <Inner/>
