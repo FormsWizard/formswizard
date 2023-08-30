@@ -1,10 +1,13 @@
 {
   "name": "publish",
   "version": "0.0.0",
-  "main": "./index.tsx",
-  "types": "./index.tsx",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
   "license": "MIT",
   "scripts": {
+    "build": "tsup index.tsx --format esm,cjs --dts --external react",
+    "dev": "npm run build -- --watch",
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
