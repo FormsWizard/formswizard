@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    formsDesigner = { url = "github:FormsWizard/forms-designer/9a7aeba";
+    formsDesigner = { url = "github:FormsWizard/forms-designer/main";
                       inputs.nixpkgs.follows = "nixpkgs"; };
     processing = { url = "github:FormsWizard/processing/main";
                    inputs.nixpkgs.follows = "nixpkgs"; };

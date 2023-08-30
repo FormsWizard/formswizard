@@ -25,8 +25,8 @@ in pkgs.mkShell {
     cp -r ${processing}/packages packages-processing
     chmod -R +w packages-forms-designer
     chmod -R +w packages-processing
-    rm -r packages-forms-designer/tsconfig
-    rm -r packages-forms-designer/eslint-config-custom
+    #rm -r packages-forms-designer/tsconfig
+    #rm -r packages-forms-designer/eslint-config-custom
 
     pnpm i
     #pnpm build
