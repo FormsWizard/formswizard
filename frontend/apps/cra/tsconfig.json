@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/react-app.json",
+  "extends": "@formswizard/designer-tsconfig/react-app.json",
   "include": ["src"],
   "compilerOptions": {
     "jsx": "react-jsx",
