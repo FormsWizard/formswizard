@@ -3,6 +3,8 @@
   "include": ["src"],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true
   }
 }
