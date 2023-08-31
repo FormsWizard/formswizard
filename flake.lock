@@ -26,11 +26,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693446530,
-        "narHash": "sha256-YHOUvpdPHGugvJQ1ERxgxOt/dOimHuOZLShsiUxtOjM=",
+        "lastModified": 1693519849,
+        "narHash": "sha256-h4PDmMTRTzRJrODgGt+lQPZLum+CnQGdWeKduGoLp+M=",
         "owner": "FormsWizard",
         "repo": "forms-designer",
-        "rev": "60e000e6c6502150fa6adce3a98e00a88c0681f0",
+        "rev": "92f30b8dbdd1a71b07dae1d003ebf646349282ae",
         "type": "github"
       },
       "original": {
@@ -63,11 +63,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693423093,
-        "narHash": "sha256-JrTkROTcIhzF5kCdy15GbPUHcPX4tYf9XiGvA81TxdE=",
+        "lastModified": 1693520388,
+        "narHash": "sha256-MzMYPJou+28toBFSvuPXUaHzKS6o6VF5W1tFmG5ARQs=",
         "owner": "FormsWizard",
         "repo": "processing",
-        "rev": "050daad0fb883da16f5fa75f6a7ccf39a4dd5ca9",
+        "rev": "77c04bc6429d01a2bcb6adfa881ffa569fa61262",
         "type": "github"
       },
       "original": {

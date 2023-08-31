@@ -15,16 +15,16 @@ interface Props {
 export function DemoYjsProvider({children, store}: PropsWithChildren<Props>) {
   const initialYState: Partial<YState> = {slices: [{store, slice: 'schema', logging: true,
                                                     providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
-                                                                                   password: 'TODO1'}},
-                                                                websocket: {url: 'ws://localhost:1234'}}},
+                                                                                   password: 'TODO'}},
+                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de'}}},
                                                    {store, slice: 'keys', logging: true,
                                                     providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
-                                                                                   password: 'TODO2'}},
-                                                                websocket: {url: 'ws://localhost:1234'}}},
+                                                                                   password: 'TODO'}},
+                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de'}}},
                                                    {store, slice: 'cryptedData', logging: true,
                                                     providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
-                                                                                   password: 'TODO3'}},
-                                                                websocket: {url: 'ws://localhost:1234'}}} ]}
+                                                                                   password: 'TODO'}},
+                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de'}}} ]}
 
   return (
     <YProvider initialYState={initialYState}>
