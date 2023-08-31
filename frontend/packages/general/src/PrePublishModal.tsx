@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
   DialogProps,
-  Typography, List, ListItem, Link
+  Typography, List, ListItem, Link, Alert
 } from '@mui/material';
 import {useCallback, useState} from "react";
 import {usePublishSchemaToYjs} from "publish";
@@ -17,6 +17,7 @@ export function PrePublishModal() {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
   const [published, setPublished] = useState<boolean>(false)
+  const [displayPublishButton, setDisplayPublishButton] = useState<boolean>(true)
   const {jsonSchema, uiSchema} = useWizard()
   const {publish} = usePublishSchemaToYjs({jsonSchema, uiSchema})
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
@@ -26,11 +27,13 @@ export function PrePublishModal() {
 
   const handleClose = () => {
     setOpen(false);
+    setDisplayPublishButton(true)
   };
 
   const handlePublish = useCallback(() => {
     publish()
     setPublished(true)
+    setDisplayPublishButton(false)
   }, [publish, setPublished])
   const descriptionElementRef = React.useRef<HTMLElement | null>(null);
   React.useEffect(() => {
@@ -47,7 +50,7 @@ export function PrePublishModal() {
       <div>
         <Button onClick={handleClickOpen('paper')}
                 variant={'contained'}
-                color={'primary'}>veröffentlichen</Button>
+                color={'primary'}>{published ? 'erneut ' : ''} veröffentlichen</Button>
         <Dialog
             open={open}
             onClose={handleClose}
@@ -55,27 +58,35 @@ export function PrePublishModal() {
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
         >
-          <DialogTitle id="scroll-dialog-title">Veröffentlichen...</DialogTitle>
+          <DialogTitle id="scroll-dialog-title"> Veröffentlichen...</DialogTitle>
           <DialogContent dividers={scroll === 'paper'}>
             {published ?
                 <DialogContentText
                     id="scroll-dialog-description"
                     ref={descriptionElementRef}
                     tabIndex={-1}
+
+                    sx={{
+                      '& .MuiTypography-root': {
+                        mb: 2
+                      }
+                    }}
                 >
                   <Typography variant={'body1'}>
-                    Das Formular wurde veröffentlicht.
+                    {published ? '✅' : ''}  Das Formular wurde veröffentlicht.
                   </Typography>
                   <Typography variant={'body1'}>
-                    Die Eingabe kann unter folgendem Link erfolgen:
+                    Die Eingabe der Daten kann unter folgendem Link erfolgen. Er ist dafür gedacht mit den zu Befragenden geteilt zu werden:
                     <br/>
                     <Link target='_blank' href={'/submit'}>Eingabemaske</Link>
                   </Typography>
                   <Typography variant={'body1'}>
-                    Die Admin-Oberfläche kann unter folgendem Link aufgerufen werden:
-                    <br/>
-                    <Link target='_blank' href={'/admin'}>Admin-Oberfläche</Link>
+                    Zur Auswertung und kollaborativen Weiterbearbeitung der Daten kann folgender Link aufgerufen werden:
                   </Typography>
+                  <Alert variant={'outlined'} severity={'warning'}>
+                    Besitzer dieses Links haben Einsicht in ALLE erhobenen Daten<br/><br/>
+                    <Link target='_blank' href={'/admin'}>Admin-Oberfläche</Link>
+                  </Alert>
                   <Typography variant={'body1'}>
                     Das Formular kann jetzt weiter bearbeitet werden. Zum veröffentlichen der Änderungen muss
                     erneut auf den Button "veröffentlichen" geklickt werden.
@@ -108,9 +119,11 @@ export function PrePublishModal() {
             }
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color={'warning'}>Abbrechen</Button>
+            <Button onClick={handleClose} color={'warning'} variant={published ? 'contained' : 'text'}>{published ? 'schließen' : 'abbrechen'}</Button>
             <Button onClick={handleClose}>als Vorlage speichern</Button>
-            <Button onClick={handlePublish} variant={'contained'} color={'primary'}>Veröffentlichen</Button>
+            <Button onClick={handlePublish} variant={'contained'} color={'primary'}
+                    disabled={!displayPublishButton}
+            >{(!displayPublishButton && published) ? 'wurde veröffentlicht' : ( ( published ? 'erneut ' : '' ) + 'Veröffentlichen')}</Button>
           </DialogActions>
         </Dialog>
       </div>
