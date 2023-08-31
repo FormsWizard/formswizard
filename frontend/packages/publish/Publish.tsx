@@ -1,13 +1,14 @@
 "use client";
 
 import {useCallback, useEffect} from 'react';
-import { Provider } from "react-redux";
-import { store, useAppDispatch, setJsonSchema, setPubKeys } from 'project-state';
-import { useWizard } from '@formswizard/forms-designer'
-import { DemoYjsProvider } from 'project-state-demo-yjs';
-import { PGPProvider, useKeyContext } from 'pgp-provider';
-import { NoSsr } from '@mui/material';
-import {JsonSchema, setUISchema, UISchemaElement} from '@jsonforms/core';
+import {
+  useAppDispatch,
+  setJsonSchema,
+  setPubKeys,
+  setUiSchema
+} from 'project-state';
+import { useKeyContext } from 'pgp-provider';
+import {JsonSchema, UISchemaElement} from '@jsonforms/core';
 
 function PublishPubKeyToYjs() {
   const dispatch = useAppDispatch();
@@ -25,41 +26,8 @@ export function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonS
 
   const publish = useCallback(() => {
     dispatch(setJsonSchema(jsonSchema));
-    dispatch(setUISchema(uiSchema));
-  }, [jsonSchema, uiSchema]);
+    dispatch(setUiSchema(uiSchema));
+  }, [jsonSchema, uiSchema, dispatch]);
 
   return {publish}
 }
-function PublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    jsonSchema && dispatch(setJsonSchema(jsonSchema));
-    uiSchema && dispatch(setUISchema(uiSchema));
-  }, [jsonSchema, uiSchema]);
-
-  return <></>
-}
-
-function PublishFromWizardProvider() {
-  const { jsonSchema, uiSchema } = useWizard()
-
-  return (
-    <Provider store={store}>
-      <DemoYjsProvider store={store}>
-        <PublishSchemaToYjs jsonSchema={jsonSchema} uiSchema={uiSchema}/>
-        <PGPProvider>
-          <PublishPubKeyToYjs/>
-        </PGPProvider>
-      </DemoYjsProvider>
-    </Provider>
-  )
-}
-
-export function Publish() {
-  return (
-    <NoSsr>
-        <PublishFromWizardProvider/>
-    </NoSsr>
-  );
-};
