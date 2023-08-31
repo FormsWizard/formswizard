@@ -1,0 +1,34 @@
+{
+  "name": "@formswizard/wizard-general",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^8.48.0",
+    "eslint-config-custom": "workspace:*",
+    "react": "^18.2.0",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@jsonforms/core": "^3.1.0",
+    "@mui/icons-material": "^5.14.6",
+    "@mui/material": "^5.14.6",
+    "@mui/x-date-pickers": "^6.12.0",
+    "@formswizard/forms-designer": "workspace:*",
+    "@formswizard/state": "workspace:*",
+    "project-state-demo-yjs": "workspace:*",
+    "pgp-provider": "workspace:^",
+    "project-state": "workspace:^",
+    "publish": "workspace:^",
+    "react-redux": "^8.1.2"
+  }
+}
