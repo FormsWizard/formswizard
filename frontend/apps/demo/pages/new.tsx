@@ -2,6 +2,7 @@
 
 import { WizardProvider, MainLayout, useWizard } from '@formswizard/forms-designer'
 import { Publish } from 'publish';
+import { PrePublishModal } from '../components';
 
 const SomeComponentUsingTheWizardState = () => {
   const { jsonSchema, uiSchema } = useWizard()
@@ -22,6 +23,7 @@ export default function New() {
       <SomeComponentUsingTheWizardState/>
       <Publish/>
       <MainLayout/>
+      <PrePublishModal />
     </WizardProvider>
   );
 }
