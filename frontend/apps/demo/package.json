@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@formswizard/forms-designer": "workspace:*",
+    "@formswizard/state": "workspace:*",
+    "@formswizard/wizard-general": "workspace:*",
+    "@mui/material": "^5.14.6",
+    "project-state-demo-yjs": "workspace:*",
     "example": "workspace:*",
     "next": "^13.4.19",
     "pgp-provider": "workspace:*",

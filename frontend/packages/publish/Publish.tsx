@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useMemo } from 'react';
+import {useCallback, useEffect} from 'react';
 import { Provider } from "react-redux";
-import { store, useAppDispatch, setJsonSchema, setUiSchema, setSchemaState, setPubKeys, useAppSelector, selectJsonSchema } from 'project-state';
-import { WizardProvider, useWizard } from '@formswizard/forms-designer'
+import { store, useAppDispatch, setJsonSchema, setPubKeys } from 'project-state';
+import { useWizard } from '@formswizard/forms-designer'
 import { DemoYjsProvider } from 'project-state-demo-yjs';
 import { PGPProvider, useKeyContext } from 'pgp-provider';
 import { NoSsr } from '@mui/material';
-import { JsonSchema, UISchemaElement } from '@jsonforms/core';
+import {JsonSchema, setUISchema, UISchemaElement} from '@jsonforms/core';
 
 function PublishPubKeyToYjs() {
   const dispatch = useAppDispatch();
@@ -20,18 +20,25 @@ function PublishPubKeyToYjs() {
   return <></>
 }
 
+export function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
+  const dispatch = useAppDispatch();
+
+  const publish = useCallback(() => {
+    jsonSchema && dispatch(setJsonSchema(jsonSchema));
+    uiSchema && dispatch(setUISchema(uiSchema));
+    console.log({jsonSchema, uiSchema})
+  }, [jsonSchema, uiSchema]);
+
+  return {publish}
+}
 function PublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    //jsonSchema && dispatch(setSchemaState({jsonSchema, uiSchema}));
     jsonSchema && dispatch(setJsonSchema(jsonSchema));
-    uiSchema && dispatch(setUiSchema(uiSchema));
-    console.log('publish', {jsonSchema, uiSchema})
+    uiSchema && dispatch(setUISchema(uiSchema));
   }, [jsonSchema, uiSchema]);
 
-  //const jsonSchemaPublished = useAppSelector(selectJsonSchema);
-  //console.log({jsonSchema, jsonSchemaPublished})
   return <></>
 }
 
@@ -53,9 +60,7 @@ function PublishFromWizardProvider() {
 export function Publish() {
   return (
     <NoSsr>
-      <WizardProvider>
         <PublishFromWizardProvider/>
-      </WizardProvider>
-    </NoSsr> 
+    </NoSsr>
   );
 };
