@@ -24,9 +24,8 @@ export function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonS
   const dispatch = useAppDispatch();
 
   const publish = useCallback(() => {
-    jsonSchema && dispatch(setJsonSchema(jsonSchema));
-    uiSchema && dispatch(setUISchema(uiSchema));
-    console.log({jsonSchema, uiSchema})
+    dispatch(setJsonSchema(jsonSchema));
+    dispatch(setUISchema(uiSchema));
   }, [jsonSchema, uiSchema]);
 
   return {publish}
