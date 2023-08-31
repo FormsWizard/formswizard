@@ -9,6 +9,7 @@ import {
   materialRenderers,
   materialCells,
 } from '@jsonforms/material-renderers';
+import { basicRenderer } from '@formswizard/designer-basic-renderer';
 import { PGPProvider, encrypt, useKeyContext } from 'pgp-provider';
 import Button from '@mui/material/Button'
 import { NoSsr } from '@mui/material';
@@ -45,7 +46,7 @@ function Form() {
 
   return !jsonSchema ? <p>'Loading jsonSchema…'</p> : <>
     <JsonForms
-      renderers={materialRenderers}
+      renderers={[...materialRenderers, ...basicRenderer]}
       cells={materialCells}
       schema={jsonSchema}
       uischema={uiSchema}
