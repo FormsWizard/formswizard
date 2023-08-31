@@ -26,11 +26,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693394184,
-        "narHash": "sha256-3oF84FKXjOoY1nX0E56mRBOneY6CKcPcUTfQvvKhT9o=",
+        "lastModified": 1693446530,
+        "narHash": "sha256-YHOUvpdPHGugvJQ1ERxgxOt/dOimHuOZLShsiUxtOjM=",
         "owner": "FormsWizard",
         "repo": "forms-designer",
-        "rev": "cb5885e36920d6b4e5fff82c1e6e9c28cf3dde0f",
+        "rev": "60e000e6c6502150fa6adce3a98e00a88c0681f0",
         "type": "github"
       },
       "original": {
