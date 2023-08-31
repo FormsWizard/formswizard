@@ -1,5 +1,5 @@
-import {useAppDispatch, useAppSelector} from "project-state";
-import {selectPreviewModus, togglePreviewModus} from "@formswizard/state";
+import {useAppDispatch} from "project-state";
+import {selectPreviewModus, togglePreviewModus, useAppSelector} from "@formswizard/state";
 import {FormControl, FormControlLabel, FormGroup, FormLabel, Switch} from "@mui/material";
 
 export const PreviewToggle = () => {
