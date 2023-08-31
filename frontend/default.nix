@@ -18,19 +18,21 @@ in pkgs.mkShell {
     find packages -name node_modules -exec rm -r {} \; || true
 
 
-    echo Dependencies are being copied…
-    rm -r packages-forms-designer || true
-    rm -r packages-processing || true
+    echo 'Dependencies are being copied…'
+    chmod -R +w packages-processing packages-forms-designer
+    rm -r packages-processing packages-forms-designer || true
     cp -r ${formsDesigner}/packages packages-forms-designer
     cp -r ${processing}/packages packages-processing
-    chmod -R +w packages-forms-designer
-    chmod -R +w packages-processing
-    #rm -r packages-forms-designer/tsconfig
-    #rm -r packages-forms-designer/eslint-config-custom
+    chmod -R +w packages-processing packages-forms-designer
 
     pnpm i
-    #pnpm build
     pnpm turbo run build --filter='./packages*/*'
+
+    echo 'chmod -w $EXTERNAL_PACKAGES'
+    chmod -R -w packages-processing packages-forms-designer
+    find . -name node_modules -exec chmod -R +w {} \;
+    find packages-processing packages-forms-designer -name .turbo -exec chmod -R +w {} \;
+    find packages-processing packages-forms-designer -name .dist -exec chmod -R +w {} \;
 
 
     packages-processing/react-redux-yjs/node_modules/y-websocket/bin/server.js &
