@@ -21,7 +21,8 @@
     "publish": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "submit": "workspace:*"
+    "submit": "workspace:*",
+    "react-redux": "^8.1.2"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
