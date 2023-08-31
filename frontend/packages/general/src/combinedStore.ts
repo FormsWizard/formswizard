@@ -3,6 +3,7 @@ import { enhanceReducer } from 'react-redux-yjs';
 import {cryptedDataReducer, keysReducer, schemaReducer} from "project-state";
 import {jsonFormsEditReducer} from "@formswizard/state/wizard/jsonFormsEditSlice";
 import {appBarReducer} from "@formswizard/state/appBar/appBarSlice";
+import {TypedUseSelectorHook, useSelector} from "react-redux";
 
 export const combinedStore = configureStore({
   reducer: {
@@ -22,3 +23,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
