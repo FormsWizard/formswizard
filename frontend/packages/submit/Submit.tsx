@@ -42,7 +42,6 @@ function Form() {
 
   const jsonSchema = useAppSelector(selectJsonSchema);
   const uiSchema = useAppSelector(selectUiSchema);
-  console.log({jsonSchema})
 
   return !jsonSchema ? <p>'Loading jsonSchema…'</p> : <>
     <JsonForms
