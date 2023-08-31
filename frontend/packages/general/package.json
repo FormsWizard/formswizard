@@ -29,6 +29,8 @@
     "pgp-provider": "workspace:^",
     "project-state": "workspace:^",
     "publish": "workspace:^",
-    "react-redux": "^8.1.2"
+    "react-redux-yjs": "workspace:*",
+    "react-redux": "^8.1.2",
+    "@reduxjs/toolkit": "^1.9.5"
   }
 }
