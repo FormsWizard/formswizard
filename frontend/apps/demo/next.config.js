@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["ui"],
-  output: 'export'
+  transpilePackages: [],
+  output: 'export',
+  basePath: '/formswizard'
 };
