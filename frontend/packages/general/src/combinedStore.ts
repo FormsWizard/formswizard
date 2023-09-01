@@ -3,6 +3,7 @@ import { enhanceReducer } from 'react-redux-yjs';
 import {cryptedDataReducer, keysReducer, schemaReducer} from "project-state";
 import {jsonFormsEditReducer} from "@formswizard/state/wizard/jsonFormsEditSlice";
 import {appBarReducer} from "@formswizard/state/appBar/appBarSlice";
+import {buildingBlocksSlice} from "@formswizard/state/buildingBlocks/buildingBlocksSlice"
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 
 export const combinedStore = configureStore({
@@ -12,6 +13,7 @@ export const combinedStore = configureStore({
     cryptedData: enhanceReducer(cryptedDataReducer, 'cryptedData'),
     jsonFormsEdit: jsonFormsEditReducer,
     AppBar: appBarReducer,
+    buildingBlocks: buildingBlocksSlice.reducer
   },
 });
 
