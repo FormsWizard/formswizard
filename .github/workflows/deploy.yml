@@ -10,7 +10,7 @@ jobs:
     - uses: cachix/install-nix-action@v22
       #with:
       #  github_access_token: ${{ secrets.GITHUB_TOKEN }}
-    - run: nix develop .#ci --command ls
+    - run: nix develop .#ci --command echo nonInteractive shellHook
     - run: nix flake check
 
     - name: Upload artifact
