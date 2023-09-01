@@ -1,14 +1,27 @@
-# Forms Wizard
-
-Description is comming soon…
-
+# Forms Wizard — main app
 
 ## Quickstart
+
+### Demo Server
+
+The easiest start is by testing our [**`Demo Instance`**](https://formswizard.github.io/formswizard/new)
+
+
+### Local Build
+
+#### via nix (recommended)
 
 ```bash
 nix develop
 ```
 
-This builds **`Forms Wizard`** using the latest curated versions (defined at `flake.lock`) of `forms-designer` and `@formswizard/processing`.
+#### via docker
 
-After all build artifacts are created, a dev-build is started (hot-reloading changes to the main app) and opening it at your [Browser](http://localhost:3000).
+*will be provided soon*
+
+
+## Further reading
+
+* [`Main Repository`](https://github.com/FormsWizard/formswizard)
+* [`Official Documentation`](https://github.com/FormsWizard/formswizard/blob/main/doc/src/SUMMARY.md)  <!-- TODO: Link to rendered mdBook as github-page -->
+* [`Wiki`](https://github.com/FormsWizard/formswizard/wiki)
