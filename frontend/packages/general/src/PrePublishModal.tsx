@@ -123,7 +123,7 @@ export function PrePublishModal() {
                     Nach der Veröffentlichung kann das Formular über einen Link zur Dateneingabe aufgerufen werden.
                   </Typography>
                   <Typography variant={'body1'}>
-                    Auf Basis des Erstellten Formulares wird ein weitere Link für eine Admin-Oberfläche generiert, über
+                    Auf Basis des Erstellten Formulares wird ein weiterer Link für eine Admin-Oberfläche generiert, über
                     die
                     die eingegebenen Daten eingesehen und exportiert werden können.
                   </Typography>
