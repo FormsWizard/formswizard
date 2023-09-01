@@ -15,12 +15,15 @@
     pkgs = import nixpkgs {inherit system;};
     inherit (pkgs) lib;
   in rec {
-    devShells.${system}."doc" = import ./doc/shell.nix { inherit pkgs; };
+    devShells.${system} = {
+      doc = import ./doc/shell.nix { inherit pkgs; };
+    };
     #devShell.${system} = devShells.${system}."doc";  ## will be changed
 
-    packages.${system} = { 
+    packages.${system} = rec {
+      ci = import ./.ci { inherit pkgs formsDesigner processing; };
       frontend = import ./frontend { inherit pkgs formsDesigner processing; };
+      default = frontend;
     };
-    defaultPackage.${system} = packages.${system}.frontend;
   };
 }

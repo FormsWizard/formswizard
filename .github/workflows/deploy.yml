@@ -1,0 +1,34 @@
+name: "Deploy"
+on:
+  pull_request:
+  push:
+jobs:
+  buildAndTest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v22
+      #with:
+      #  github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: nix develop .#ci --command ls
+    - run: nix flake check
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./frontend/apps/demo/out/
+
+  deploy:
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: buildAndTest
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
