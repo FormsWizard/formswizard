@@ -39,14 +39,14 @@ in pkgs.mkShell {
 
 
     pnpm turbo run build --filter='./apps/*'
-    #(cd apps/demo/out; python -m http.server || true) &
-    #xdg-open http://localhost:8000/ &
+    (cd apps/demo/out; python -m http.server || true) &
+    xdg-open http://localhost:8000/new.html &
 
 
     cd apps/demo
 
-    xdg-open http://localhost:3000/ &
-    pnpm dev
-    exit
+    #xdg-open http://localhost:3000/new &
+    #pnpm dev
+    #exit
   '';
 }

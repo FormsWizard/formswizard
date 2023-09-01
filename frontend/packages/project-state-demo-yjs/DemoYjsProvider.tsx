@@ -13,18 +13,25 @@ interface Props {
  *  - read communication metadata to gain knowledge about users
  **/
 export function DemoYjsProvider({children, store}: PropsWithChildren<Props>) {
-  const initialYState: Partial<YState> = {slices: [{store, slice: 'schema', logging: true,
+  const hash = typeof location != 'undefined' ? location.hash.slice(1) : '';
+  const hashParameters = !hash ? {} : Object.fromEntries(new URLSearchParams(hash) as any);
+
+  const initialYState: Partial<YState> = {slices: [{store, slice: 'schema', logging: true,  // TODO
                                                     providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
-                                                                                   password: 'TODO'}},
-                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de'}}},
+                                                                                   password: hashParameters.formId}},
+                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de',
+                                                                            room: hashParameters.formId}}},
                                                    {store, slice: 'keys', logging: true,
                                                     providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
-                                                                                   password: 'TODO'}},
-                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de'}}},
+                                                                                   password: hashParameters.formId}},
+                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de',
+                                                                            room: hashParameters.formId}}},
                                                    {store, slice: 'cryptedData', logging: true,
                                                     providers: {webrtc: {options: {signaling: ['wss://yjs.winzlieb.eu'],
-                                                                                   password: 'TODO'}},
-                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de'}}} ]}
+                                                                                   password: hashParameters.formId}},
+                                                                websocket: {url: 'wss://mqtt.afg.mission-lifeline.de',
+                                                                            room: hashParameters.formId}}}  ]}
+
 
   return (
     <YProvider initialYState={initialYState}>

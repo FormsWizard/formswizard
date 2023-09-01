@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -9,17 +9,18 @@ import {
   DialogProps,
   Typography, Link, Alert, Box
 } from '@mui/material';
-import {useCallback, useState} from "react";
-import {usePublishSchemaToYjs} from "publish";
+import { usePublishSchemaToYjs, usePublishPubKeyToYjs } from "publish";
 import {useWizard} from "@formswizard/forms-designer";
+import { useRouter } from 'next/router'
 
 export function PrePublishModal() {
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
+  const [open, setOpen] = useState(false);
+  const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
   const [published, setPublished] = useState<boolean>(false)
   const [displayPublishButton, setDisplayPublishButton] = useState<boolean>(true)
   const {jsonSchema, uiSchema} = useWizard()
-  const {publish} = usePublishSchemaToYjs({jsonSchema, uiSchema})
+  const {publishPubKey} = usePublishPubKeyToYjs()
+  const {publishSchema} = usePublishSchemaToYjs({jsonSchema, uiSchema})
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
     setOpen(true);
     setScroll(scrollType);
@@ -31,12 +32,13 @@ export function PrePublishModal() {
   };
 
   const handlePublish = useCallback(() => {
-    publish()
+    publishPubKey()
+    publishSchema()
     setPublished(true)
     setDisplayPublishButton(false)
-  }, [publish, setPublished])
-  const descriptionElementRef = React.useRef<HTMLElement | null>(null);
-  React.useEffect(() => {
+  }, [publishPubKey, publishSchema, setPublished])
+  const descriptionElementRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
     if (open) {
       const {current: descriptionElement} = descriptionElementRef;
       if (descriptionElement !== null) {
@@ -45,6 +47,20 @@ export function PrePublishModal() {
     }
   }, [open]);
 
+  const formId = useMemo(() => crypto.randomUUID(), []);
+  const adminPassphrase = useMemo(() => crypto.randomUUID(), []);
+
+  const suffix = process.env.NODE_ENV === 'production' ? '.html' : '';
+  const urls = {
+    new: `#formId=${formId}`,
+    submit: `./submit${suffix}#formId=${formId}`,
+    edit: `./edit${suffix}#formId=${formId}&dataKey=${adminPassphrase}&sessionKey=${adminPassphrase}`
+  };
+  const router = useRouter();
+  useEffect( () => { router.replace(urls.new)
+                           .catch((e) => { // workaround for https://github.com/vercel/next.js/issues/37362
+                                           if (!e.cancelled) throw e
+                                         })}, [] );
 
   return (
       <div>
@@ -78,14 +94,14 @@ export function PrePublishModal() {
                   <Typography variant={'body1'}>
                     Die Eingabe der Daten kann unter folgendem Link erfolgen. Er ist dafür gedacht mit den zu Befragenden geteilt zu werden:
                     <br/>
-                    <Link target='_blank' href={'./submit'}>Eingabemaske</Link>
+                    <Link target='_blank' href={urls.submit}>Eingabemaske</Link>
                   </Typography>
                   <Typography variant={'body1'}>
                     Zur Auswertung und kollaborativen Weiterbearbeitung der Daten kann folgender Link aufgerufen werden:
                   </Typography>
                   <Alert variant={'outlined'} severity={'warning'}>
                     Besitzer dieses Links haben Einsicht in ALLE erhobenen Daten<br/><br/>
-                    <Link target='_blank' href={'./edit'}>Admin-Oberfläche</Link>
+                    <Link target='_blank' href={urls.edit}>Admin-Oberfläche</Link>
                   </Alert>
                   <Typography variant={'body1'}>
                     Das Formular kann jetzt weiter bearbeitet werden. Zum veröffentlichen der Änderungen muss

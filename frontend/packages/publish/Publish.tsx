@@ -10,24 +10,24 @@ import {
 import { useKeyContext } from 'pgp-provider';
 import {JsonSchema, UISchemaElement} from '@jsonforms/core';
 
-function PublishPubKeyToYjs() {
+export function usePublishPubKeyToYjs() {
   const dispatch = useAppDispatch();
   const { armoredPublicKey } = useKeyContext();
 
-  useEffect(() => {
-    armoredPublicKey && dispatch(setPubKeys([armoredPublicKey]));
-  }, [armoredPublicKey]);
+  const publishPubKey = useCallback(() => {
+    armoredPublicKey && (setPubKeys([armoredPublicKey]));
+  }, [armoredPublicKey, dispatch]);
 
-  return <></>
+  return {publishPubKey}
 }
 
 export function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
   const dispatch = useAppDispatch();
 
-  const publish = useCallback(() => {
+  const publishSchema = useCallback(() => {
     dispatch(setJsonSchema(jsonSchema));
     dispatch(setUiSchema(uiSchema));
   }, [jsonSchema, uiSchema, dispatch]);
 
-  return {publish}
+  return {publishSchema}
 }
