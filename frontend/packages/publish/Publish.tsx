@@ -1,16 +1,25 @@
 "use client";
 
-import {useCallback, useEffect} from 'react';
+import { useCallback, useEffect } from 'react';
+import { DefaultService, OpenAPI } from '@formswizard/api';
+import { useKeyContext } from 'pgp-provider';
+import {JsonSchema, UISchemaElement} from '@jsonforms/core';
+/*
 import {
   useAppDispatch,
   setJsonSchema,
   setPubKeys,
   setUiSchema
 } from 'project-state';
-import { useKeyContext } from 'pgp-provider';
-import {JsonSchema, UISchemaElement} from '@jsonforms/core';
+*/
 
-export function usePublishPubKeyToYjs() {
+
+/** PublishToYjs should only be used for demo purposes.
+ *  For using it, the DemoYjsProvider with combinedState must be used.
+ **/
+
+/*
+function usePublishPubKeyToYjs() {
   const dispatch = useAppDispatch();
   const { armoredPublicKey } = useKeyContext();
 
@@ -21,7 +30,7 @@ export function usePublishPubKeyToYjs() {
   return {publishPubKey}
 }
 
-export function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
+function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
   const dispatch = useAppDispatch();
 
   const publishSchema = useCallback(() => {
@@ -31,3 +40,31 @@ export function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonS
 
   return {publishSchema}
 }
+*/
+
+/** PublishToServer are the default implementations that should be used for productive setups **/
+
+OpenAPI.BASE = 'http://localhost:4000';
+
+function usePublishPubKeyToServer() {
+  const { armoredPublicKey } = useKeyContext()
+  const { postProjectStateKeys } = DefaultService;
+
+  const publishPubKey = useCallback(() => {
+    armoredPublicKey && postProjectStateKeys({keys: {pubKeys: [armoredPublicKey]}});
+  }, [armoredPublicKey, postProjectStateKeys]);
+  return {publishPubKey}
+}
+
+function usePublishSchemaToServer({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
+  const { postProjectStateSchema } = DefaultService;
+
+  const publishSchema = useCallback(() => {
+    postProjectStateSchema({schema: {jsonSchema, uiSchema}});
+  }, [jsonSchema, uiSchema, postProjectStateSchema]);
+  return {publishSchema}
+}
+
+
+export const usePublishPubKey = usePublishPubKeyToServer
+export const usePublishSchema = usePublishSchemaToServer
