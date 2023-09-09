@@ -21,6 +21,7 @@
             [clojure.java.io :as io]
             [clojure.spec.alpha :as s]
             [spec-tools.core :as st]
+            [spec-tools.json-schema :as json-schema]
             [sieppari.async.manifold]
             [manifold.deferred :as d]))
 
@@ -35,6 +36,9 @@
      :description "between 1-100"
      :swagger/default 10
      :reason "invalid number"}))
+
+(comment
+  (json-schema/transform ::results))
 
 (def app
   (http/ring-handler
