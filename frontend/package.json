@@ -5,7 +5,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev --concurrency 30",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "codegen": "npx openapi-typescript-codegen --input http://localhost:4000/openapi.json --output ./codegen"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.13",
