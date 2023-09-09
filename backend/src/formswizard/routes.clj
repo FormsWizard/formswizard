@@ -1,6 +1,7 @@
 (ns formswizard.routes
   (:require [formswizard.resolver.openapi.swagger :as swagger]
             [formswizard.resolver.openapi.openapi :as openapi]
+            [formswizard.resolver.project-state.schema :as schema]
             [formswizard.resolver.example.math.plus :as plus]
             [formswizard.resolver.example.math.minus :as minus]
             [formswizard.resolver.example.async :as async]
@@ -12,11 +13,13 @@
   [["/swagger.json" swagger/route]
    ["/openapi.json" openapi/route]
 
-   ["/math"
+   ["/project-state"
+     ["/schema" schema/route]]
+   #_["/math"
     ["/plus" plus/route]
     ["/minus" minus/route]]
-   ["/files"
+   #_["/files"
     ["/upload" upload/route]
     ["/download" download/route]]
-   ["/async" async/route]
-   ["/secure" secure/route]])
+   #_["/async" async/route]
+   #_["/secure" secure/route]])

@@ -4,7 +4,7 @@
             [ring.mock.request :refer [request json-body]]
             [clojure.java.io :as io]))
 
-(deftest example-server
+#_(deftest example-server
 
   (testing "GET"
     (is (= (-> (request :get "/math/plus?x=20&y=3")
@@ -37,3 +37,20 @@
          (is (= (-> {:request-method :post :uri "/files/upload" :multipart-params {:file multipart-temp-file-part}}
                     app :body slurp)
                 "{\"name\":\"reitit.png\",\"size\":506325}")))))
+
+
+(deftest schema
+  (testing "GET /project-state/schema — initially"
+    (is (= (-> (request :get "/project-state/schema")
+               app :body slurp)
+           "{}")))
+
+  (testing "POST /project-state/schema"
+    (is (= (-> (request :post "/project-state/schema") (json-body {:schema {:uiSchema "uis" :jsonSchema "jss"}})
+               app :body slurp)
+           "{\"result\":\"ok\"}")))
+
+  (testing "GET /project-state/schema"
+    (is (= (-> (request :get "/project-state/schema")
+               app :body slurp)
+           "{\"schema\":{\"uiSchema\":\"uis\",\"jsonSchema\":\"jss\"}}"))))
