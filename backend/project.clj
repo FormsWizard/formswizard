@@ -8,6 +8,7 @@
                  [metosin/reitit "0.7.0-alpha5"]
                  [metosin/ring-swagger-ui "5.0.0-alpha.0"]
                  [metosin/spec-tools "0.10.6"]
+                 [zerg000000/simple-cors "0.0.8"]
                  [aleph "0.6.3"]]
   :main formswizard.core/-main
   :repl-options {:init-ns formswizard.core}

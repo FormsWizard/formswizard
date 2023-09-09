@@ -18,13 +18,20 @@
             [sieppari.async.manifold]
             [formswizard.routes :refer [routes]]
             [formswizard.resolver.openapi.swagger :as swagger]
-            [formswizard.resolver.openapi.openapi :as openapi]))
+            [formswizard.resolver.openapi.openapi :as openapi]
+            [simple-cors.reitit.interceptor :as cors]))
+
+(def cors-config {:cors-config {:allowed-request-methods [:post :put :get]
+                                :allowed-request-headers ["Authorization" "Content-Type"]
+                                :origins ["http://localhost:4000" "http://localhost:3000"]
+                                :max-age 300}})
 
 (def app
   (http/ring-handler
    (http/router
     routes
-    {:reitit.interceptor/transform dev/print-context-diffs ;; pretty context diffs
+    {:reitit.http/default-options-endpoint (cors/make-default-options-endpoint cors-config)
+     :reitit.interceptor/transform dev/print-context-diffs ;; pretty context diffs
      :validate spec/validate ;; enable spec validation for route data
      :reitit.spec/wrap spell/closed ;; strict top-level validation
      :exception pretty/exception
@@ -49,7 +56,8 @@
                            ;; coercing request parameters
                            (coercion/coerce-request-interceptor)
                            ;; multipart
-                           (multipart/multipart-interceptor)]}})
+                           (multipart/multipart-interceptor)
+                          ]}})
    (ring/routes
     (swagger-ui/create-swagger-ui-handler
      {:path "/"
@@ -59,7 +67,8 @@
                :urls.primaryName "openapi"
                :operationsSorter "alpha"}})
     (ring/create-default-handler))
-   {:executor sieppari/executor}))
+   {:executor sieppari/executor
+    :interceptors [(cors/cors-interceptor cors-config)]}))
 
 (defn start []
   (let [port 4000]
