@@ -1,0 +1,20 @@
+{
+  "name": "@formswizard/api",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup codegen/index.ts --format esm,cjs --dts --external react",
+    "dev": "npm run build --watch",
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+  }
+}

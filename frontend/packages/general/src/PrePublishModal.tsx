@@ -9,9 +9,10 @@ import {
   DialogProps,
   Typography, Link, Alert, Box
 } from '@mui/material';
-import { usePublishSchemaToYjs, usePublishPubKeyToYjs } from "publish";
-import {useWizard} from "@formswizard/forms-designer";
+//import { usePublishSchemaToYjs, usePublishPubKeyToYjs } from "publish";
+import { useWizard } from "@formswizard/forms-designer";
 import { useRouter } from 'next/router'
+import { DefaultService, OpenAPI } from '@formswizard/api';
 
 export function PrePublishModal() {
   const [open, setOpen] = useState(false);
@@ -19,8 +20,8 @@ export function PrePublishModal() {
   const [published, setPublished] = useState<boolean>(false)
   const [displayPublishButton, setDisplayPublishButton] = useState<boolean>(true)
   const {jsonSchema, uiSchema} = useWizard()
-  const {publishPubKey} = usePublishPubKeyToYjs()
-  const {publishSchema} = usePublishSchemaToYjs({jsonSchema, uiSchema})
+  //const {publishPubKey} = usePublishPubKeyToYjs()
+  //const {publishSchema} = usePublishSchemaToYjs({jsonSchema, uiSchema})
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
     setOpen(true);
     setScroll(scrollType);
@@ -31,12 +32,22 @@ export function PrePublishModal() {
     setDisplayPublishButton(true)
   };
 
+  const publishSchema = useCallback(async () => {
+     OpenAPI.BASE = 'http://localhost:4000';
+     const { getProjectStateSchema, postProjectStateSchema } = DefaultService;
+     await postProjectStateSchema({schema: {jsonSchema, uiSchema}});
+
+     const result = await getProjectStateSchema();
+     console.log('publish', {jsonSchema, uiSchema, postProjectStateSchema, result})
+  }, [jsonSchema, uiSchema]);
+
   const handlePublish = useCallback(() => {
-    publishPubKey()
+    //publishPubKey()
     publishSchema()
     setPublished(true)
     setDisplayPublishButton(false)
-  }, [publishPubKey, publishSchema, setPublished])
+  }, [/*publishPubKey,*/ publishSchema, setPublished])
+
   const descriptionElementRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     if (open) {

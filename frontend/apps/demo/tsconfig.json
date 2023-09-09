@@ -6,7 +6,9 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "lib": [ "es2017", "dom" ],
+    "target": "es2017"
   },
   "include": [
     "next-env.d.ts",
