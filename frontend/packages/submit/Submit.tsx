@@ -1,18 +1,22 @@
 "use client";
 
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Provider} from "react-redux";
 import {
   store,
   useAppSelector,
+  setJsonSchema,
   selectJsonSchema,
+  setUiSchema,
   selectUiSchema,
+  setPubKeys,
   selectPubKeys,
   useAppDispatch,
   setCryptedData,
   selectCryptedData
 } from 'project-state';
-import {DemoYjsProvider} from 'project-state-demo-yjs';
+//import {DemoYjsProvider} from 'project-state-demo-yjs';
+import { DefaultService, OpenAPI } from '@formswizard/api';
 import {JsonForms} from '@jsonforms/react';
 import {
   materialRenderers,
@@ -22,7 +26,11 @@ import {basicRenderer} from '@formswizard/designer-basic-renderer';
 import {PGPProvider, encrypt, useKeyContext} from 'pgp-provider';
 import {Button, Container, Alert, NoSsr, Grid, CircularProgress, Backdrop, Typography} from '@mui/material';
 
+OpenAPI.BASE = 'http://localhost:4000';
+const { getProjectStateSchema, getProjectStateKeys, postProjectStateCryptedData } = DefaultService;
+
 function Form() {
+  const dispatch = useAppDispatch();
   const [data, setData] = useState({});
   const [published, setPublished] = useState(false);
 
@@ -30,30 +38,47 @@ function Form() {
     if (errors.length === 0) {
       setData(data)
     }
-    ;
-  }, []);
+  }, [])
 
   const pubKeys = useAppSelector(selectPubKeys);
+  useEffect(() => {
+    async function loadKeys() {
+      const { keys } = await getProjectStateKeys();
+      const { pubKeys } = keys || {};
+      pubKeys && dispatch(setPubKeys(pubKeys))
+    }
+    pubKeys || loadKeys()
+  }, [pubKeys, dispatch])
+
+  const jsonSchema = useAppSelector(selectJsonSchema);
+  const uiSchema = useAppSelector(selectUiSchema);
+  useEffect(() => {
+    async function loadSchema() {
+      const { schema } = await getProjectStateSchema();
+      const { jsonSchema, uiSchema } = schema || {};
+      jsonSchema && dispatch(setJsonSchema(jsonSchema))
+      jsonSchema && dispatch(setUiSchema(uiSchema))
+    }
+    jsonSchema || loadSchema()
+  }, [jsonSchema, uiSchema, dispatch])
+
   const {keyId, armoredPublicKey, publicKey} = useKeyContext();
-  const dispatch = useAppDispatch();
 
   const onSubmit = useCallback(async () => {
     const encrypted = await encrypt(JSON.stringify(data), pubKeys, publicKey);  // TODO add signature
     if (encrypted && keyId && armoredPublicKey) {
-      const cryptedData = {
+      const cryptedDatum = {
         data: encrypted,
         uuid: crypto.randomUUID(),
         keyId, armoredPublicKey
       };
-      console.info({cryptedData});
-      dispatch(setCryptedData(cryptedData));
+      postProjectStateCryptedData({cryptedDatum})
+      //dispatch(setCryptedData(cryptedDatum));
+      //console.info({cryptedDatum});
       setPublished(true);
     }
   }, [data, setPublished])
   //const cryptedDataPublished = useAppSelector(selectCryptedData);
-
-  const jsonSchema = useAppSelector(selectJsonSchema);
-  const uiSchema = useAppSelector(selectUiSchema);
 
   return (
       <>
@@ -67,11 +92,6 @@ function Form() {
         <Container>
           {jsonSchema ?
               <Grid container spacing={2} direction={'column'}>
-                <Grid item>
-                  <Typography variant="h3" component="h3">
-                    {'Submission Form'}
-                  </Typography>
-                </Grid>
                 <Grid item>
                   <JsonForms
                       renderers={[...materialRenderers, ...basicRenderer]}
@@ -105,11 +125,11 @@ export function Submit() {
   return (
     <NoSsr>
       <Provider store={store}>
-        <DemoYjsProvider store={store}>
+        {/*<DemoYjsProvider store={store}>*/}
           <PGPProvider>
             <Form/>
           </PGPProvider>
-        </DemoYjsProvider>
+	{/*</DemoYjsProvider>*/}
       </Provider>
     </NoSsr>
   );
