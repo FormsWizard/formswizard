@@ -1,9 +1,18 @@
 {
   "name": "@formswizard/api",
-  "version": "0.0.0",
+  "version": "0.0.4",
+  "description": "Typescript client for OpenAPI specification of FormsWizard-REST-API (using openapi-typescript-codegen)",
+  "keywords": ["openapi", "swagger", "rest", "api", "typescript", "codegen", "forms", "wizard", "json", "schema", "jsonschema", "uischema"],
+  "license": "MIT",
+  "homepage": "https://github.com/FormsWizard",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/FormsWizard/formswizard.git"
+  },
+  "author": [{"name": "Johannes Lötzsch"}],
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "license": "MIT",
   "scripts": {
     "build": "tsup codegen/index.ts --format esm,cjs --dts --external react",
     "dev": "npm run build --watch",

@@ -3,9 +3,9 @@
 
 (def route
   {:get {:no-doc true
-         :swagger {:info {:title "my-api"
-                          :description "swagger-docs with reitit-http"
-                          :version "0.0.1"}
+         :swagger {:info {:title "FormsWizard SwaggerAPI"
+                          :description "swagger-docs of FormsWizard backend"
+                          :version "0.1.0"}
                    ;; used in /secure APIs below
                    :securityDefinitions {"auth" {:type :apiKey
                                                  :in :header

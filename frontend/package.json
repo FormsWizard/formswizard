@@ -1,6 +1,6 @@
 {
   "name": "@formswizard/app",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --concurrency 30",
