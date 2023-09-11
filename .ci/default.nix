@@ -22,6 +22,9 @@ in pkgs.mkShell {
     pnpm turbo run build --filter='./packages*/*'
 
     echo 'Building app (next demo build)'
+    export NEXT_PUBLIC_BACKEND='https://backend.afg.mission-lifeline.de'
+    export NEXT_PUBLIC_SIGNALING='wss://yjs.winzlieb.eu'
+    export NEXT_PUBLIC_WS='wss://ws.afg.mission-lifeline.de'
     pnpm turbo run build --filter='./apps/demo'
     touch ./apps/demo/out/.nojekyll
 

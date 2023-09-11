@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect } from 'react';
-import { DefaultService, OpenAPI } from '@formswizard/api';
+import { api } from '@formswizard/api';
 import { useKeyContext } from 'pgp-provider';
-import {JsonSchema, UISchemaElement} from '@jsonforms/core';
+import { JsonSchema, UISchemaElement } from '@jsonforms/core';
 /*
 import {
   useAppDispatch,
@@ -44,24 +44,20 @@ function usePublishSchemaToYjs({jsonSchema, uiSchema}: {jsonSchema: JsonSchema, 
 
 /** PublishToServer are the default implementations that should be used for productive setups **/
 
-OpenAPI.BASE = 'http://localhost:4000';
-
 function usePublishPubKeyToServer({formId, formAdminToken}: {formId: string, formAdminToken: string}) {
   const { armoredPublicKey } = useKeyContext()
-  const { postProjectStateKeys } = DefaultService;
 
   const publishPubKey = useCallback(() => {
-    armoredPublicKey && postProjectStateKeys({formId, formAdminToken, keys: {pubKeys: [armoredPublicKey]}});
-  }, [armoredPublicKey, postProjectStateKeys]);
+    armoredPublicKey && api.postProjectStateKeys({formId, formAdminToken, keys: {pubKeys: [armoredPublicKey]}});
+  }, [armoredPublicKey]);
   return {publishPubKey}
 }
 
 function usePublishSchemaToServer({formId, formAdminToken, jsonSchema, uiSchema}: {formId: string, formAdminToken: string, jsonSchema: JsonSchema, uiSchema: UISchemaElement}) {
-  const { postProjectStateSchema } = DefaultService;
 
   const publishSchema = useCallback(() => {
-    postProjectStateSchema({formId, formAdminToken, schema: {jsonSchema, uiSchema}});
-  }, [jsonSchema, uiSchema, postProjectStateSchema]);
+    api.postProjectStateSchema({formId, formAdminToken, schema: {jsonSchema, uiSchema}});
+  }, [jsonSchema, uiSchema]);
   return {publishSchema}
 }
 

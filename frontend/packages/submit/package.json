@@ -29,7 +29,6 @@
     "@mui/x-date-pickers": "^6.12.0",
     "pgp-provider": "workspace:^",
     "project-state": "workspace:^",
-    "project-state-demo-yjs": "workspace:^",
     "react-redux": "^8.1.2"
   }
 }

@@ -63,11 +63,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694395318,
-        "narHash": "sha256-L3odEORAV9nOnkkCNdaDJdFWAShBJhzWCkdMJzyFi0I=",
+        "lastModified": 1694458216,
+        "narHash": "sha256-3fXPJXTcAbhbvgZfwyKCx7I53a1nLy4Ghyc9uRq8/D0=",
         "owner": "FormsWizard",
         "repo": "processing",
-        "rev": "99cdb9b3c1b5bf67011871826cbff366f6a8a47f",
+        "rev": "be031eefdb73f684de41b77efbeac4902b077560",
         "type": "github"
       },
       "original": {

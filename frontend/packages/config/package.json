@@ -1,0 +1,38 @@
+{
+  "name": "@formswizard/config",
+  "version": "0.2.1",
+  "description": "Wrapper for config of FormsWizard",
+  "keywords": [
+    "config",
+    "typescript",
+    "forms",
+    "wizard",
+    "tsup"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/FormsWizard/formswizard/tree/main/frontend/packages/config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FormsWizard/formswizard.git"
+  },
+  "author": [
+    {
+      "name": "Johannes Lötzsch"
+    }
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup index.ts --format esm,cjs --dts --external react",
+    "dev": "npm run build --watch",
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "eslint": "^8.48.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.2.2"
+  }
+}

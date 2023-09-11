@@ -29,7 +29,6 @@
     "next": "^13.4.19",
     "pgp-provider": "workspace:^",
     "project-state": "workspace:^",
-    "project-state-demo-yjs": "workspace:*",
     "publish": "workspace:^",
     "react-redux": "^8.1.2",
     "react-redux-yjs": "workspace:*"

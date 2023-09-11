@@ -38,6 +38,11 @@ in pkgs.mkShell {
     packages-processing/react-redux-yjs/node_modules/y-websocket/bin/server.js &
 
 
+    export NEXT_PUBLIC_BACKEND='https://backend.afg.mission-lifeline.de'
+    export NEXT_PUBLIC_SIGNALING='wss://yjs.winzlieb.eu'
+    export NEXT_PUBLIC_WS='wss://ws.afg.mission-lifeline.de'
+
+
     pnpm turbo run build --filter='./apps/*'
     (cd apps/demo/out; python -m http.server 8080 || true) &
     xdg-open http://localhost:8080/new.html &
