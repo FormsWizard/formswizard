@@ -39,8 +39,10 @@ in pkgs.mkShell {
 
 
     pnpm turbo run build --filter='./apps/*'
+    mkdir apps/demo/out/formswizard
+    mv apps/demo/out/* apps/demo/out/formswizard
     (cd apps/demo/out; python -m http.server 8080 || true) &
-    xdg-open http://localhost:8080/new.html &
+    xdg-open http://localhost:8080/formswizard/new.html &
 
 
     cd apps/demo

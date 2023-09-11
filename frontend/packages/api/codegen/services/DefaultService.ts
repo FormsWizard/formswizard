@@ -30,10 +30,13 @@ export class DefaultService {
 
     /**
      * get project-state.schema
+     * @param formId
      * @returns any
      * @throws ApiError
      */
-    public static getProjectStateSchema(): CancelablePromise<{
+    public static getProjectStateSchema(
+        formId: string,
+    ): CancelablePromise<{
         schema?: {
             jsonSchema: any;
             uiSchema: any;
@@ -42,6 +45,9 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project-state/schema',
+            query: {
+                'formId': formId,
+            },
         });
     }
 
@@ -53,6 +59,8 @@ export class DefaultService {
      */
     public static postProjectStateSchema(
         requestBody?: {
+            formId: string;
+            formAdminToken: string;
             schema: {
                 jsonSchema: any;
                 uiSchema: any;
@@ -81,10 +89,13 @@ export class DefaultService {
 
     /**
      * get project-state.keys
+     * @param formId
      * @returns any
      * @throws ApiError
      */
-    public static getProjectStateKeys(): CancelablePromise<{
+    public static getProjectStateKeys(
+        formId: string,
+    ): CancelablePromise<{
         keys?: {
             pubKeys: Array<string>;
         };
@@ -92,6 +103,9 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project-state/keys',
+            query: {
+                'formId': formId,
+            },
         });
     }
 
@@ -103,6 +117,8 @@ export class DefaultService {
      */
     public static postProjectStateKeys(
         requestBody?: {
+            formId: string;
+            formAdminToken: string;
             keys: {
                 pubKeys: Array<string>;
             };
@@ -130,10 +146,13 @@ export class DefaultService {
 
     /**
      * get project-state.cryptedData
+     * @param formId
      * @returns any
      * @throws ApiError
      */
-    public static getProjectStateCryptedData(): CancelablePromise<{
+    public static getProjectStateCryptedData(
+        formId: string,
+    ): CancelablePromise<{
         cryptedData?: Array<{
             data: string;
             uuid: string;
@@ -144,6 +163,9 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project-state/cryptedData',
+            query: {
+                'formId': formId,
+            },
         });
     }
 
@@ -155,6 +177,7 @@ export class DefaultService {
      */
     public static postProjectStateCryptedData(
         requestBody?: {
+            formId: string;
             cryptedDatum: {
                 data: string;
                 uuid: string;

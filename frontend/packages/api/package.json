@@ -1,6 +1,6 @@
 {
   "name": "@formswizard/api",
-  "version": "0.0.4",
+  "version": "0.2.0",
   "description": "Typescript client for OpenAPI specification of FormsWizard-REST-API (using openapi-typescript-codegen)",
   "keywords": ["openapi", "swagger", "rest", "api", "typescript", "codegen", "forms", "wizard", "json", "schema", "jsonschema", "uischema"],
   "license": "MIT",

@@ -23,7 +23,7 @@
 
 (def cors-config {:cors-config {:allowed-request-methods [:post :put :get]
                                 :allowed-request-headers ["Authorization" "Content-Type"]
-                                :origins ["http://localhost:4000" "http://localhost:3000"]
+                                :origins ["http://localhost:4000" "http://localhost:3000" "http://localhost:3001" "http://localhost:3002"]
                                 :max-age 300}})
 
 (def app

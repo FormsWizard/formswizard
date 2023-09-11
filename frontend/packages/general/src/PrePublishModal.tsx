@@ -18,9 +18,14 @@ export function PrePublishModal() {
   const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
   const [published, setPublished] = useState<boolean>(false)
   const [displayPublishButton, setDisplayPublishButton] = useState<boolean>(true)
-  const {publishPubKey} = usePublishPubKey()
+
+  const formId = useMemo(() => crypto.randomUUID(), []);
+  const formAdminToken = useMemo(() => crypto.randomUUID(), []);
+  const adminYjsKey = useMemo(() => crypto.randomUUID(), []);
+
+  const {publishPubKey} = usePublishPubKey({formId, formAdminToken})
   const {jsonSchema, uiSchema} = useWizard()
-  const {publishSchema} = usePublishSchema({jsonSchema, uiSchema});
+  const {publishSchema} = usePublishSchema({formId, formAdminToken, jsonSchema, uiSchema});
 
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
     setOpen(true);
@@ -49,14 +54,11 @@ export function PrePublishModal() {
     }
   }, [open]);
 
-  const formId = useMemo(() => crypto.randomUUID(), []);
-  const adminPassphrase = useMemo(() => crypto.randomUUID(), []);
-
   const suffix = process.env.NODE_ENV === 'production' ? '.html' : '';
   const urls = {
     new: `#formId=${formId}`,
     submit: `./submit${suffix}#formId=${formId}`,
-    edit: `./edit${suffix}#formId=${formId}&dataKey=${adminPassphrase}&sessionKey=${adminPassphrase}`
+    edit: `./edit${suffix}#formId=${formId}&dataKey=${adminYjsKey}&sessionKey=${adminYjsKey}`
   };
   const router = useRouter();
   useEffect( () => { router.replace(urls.new)

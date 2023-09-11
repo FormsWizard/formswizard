@@ -6,3 +6,9 @@
 (def ok-response {200 {:body ::ok}})
 (def ok {:status 200
          :body {:result "ok"}})
+
+(s/def :unauthorized/result #{"unauthorized"})
+(s/def ::unauthorized (s/keys :req-un [:unauthorized/result]))
+(def unauthorized-response {401 {:body ::unauthorized}})
+(def unauthorized {:status 401
+                   :body {:result "unauthorized"}})

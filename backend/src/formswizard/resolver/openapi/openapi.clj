@@ -5,7 +5,7 @@
   {:get {:no-doc true
          :openapi {:info {:title "FormsWizard OpenAPI"
                           :description "openapi3-docs of FormsWizard backend"
-                          :version "0.1.0"}
+                          :version "0.2.0"}
                    ;; used in /secure APIs below
                    :components {:securitySchemes {"auth" {:type :apiKey
                                                           :in :header

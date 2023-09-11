@@ -12,8 +12,8 @@ import {
   setPubKeys,
   selectPubKeys,
   useAppDispatch,
-  setCryptedData,
-  selectCryptedData
+  /*setCryptedData,
+  selectCryptedData*/
 } from 'project-state';
 //import {DemoYjsProvider} from 'project-state-demo-yjs';
 import { DefaultService, OpenAPI } from '@formswizard/api';
@@ -24,7 +24,7 @@ import {
 } from '@jsonforms/material-renderers';
 import {basicRenderer} from '@formswizard/designer-basic-renderer';
 import {PGPProvider, encrypt, useKeyContext} from 'pgp-provider';
-import {Button, Container, Alert, NoSsr, Grid, CircularProgress, Backdrop, Typography} from '@mui/material';
+import {Button, Container, Alert, NoSsr, Grid, CircularProgress, Backdrop} from '@mui/material';
 
 OpenAPI.BASE = 'http://localhost:4000';
 const { getProjectStateSchema, getProjectStateKeys, postProjectStateCryptedData } = DefaultService;
@@ -40,27 +40,31 @@ function Form() {
     }
   }, [])
 
+  const hash = typeof location != 'undefined' ? location.hash.slice(1) : '';
+  const hashParameters = !hash ? {} : Object.fromEntries(new URLSearchParams(hash) as any);
+  const { formId } = hashParameters;
+
   const pubKeys = useAppSelector(selectPubKeys);
   useEffect(() => {
     async function loadKeys() {
-      const { keys } = await getProjectStateKeys();
+      const { keys } = await getProjectStateKeys(formId);
       const { pubKeys } = keys || {};
       pubKeys && dispatch(setPubKeys(pubKeys))
     }
     pubKeys || loadKeys()
-  }, [pubKeys, dispatch])
+  }, [formId, pubKeys, dispatch])
 
   const jsonSchema = useAppSelector(selectJsonSchema);
   const uiSchema = useAppSelector(selectUiSchema);
   useEffect(() => {
     async function loadSchema() {
-      const { schema } = await getProjectStateSchema();
+      const { schema } = await getProjectStateSchema(formId);
       const { jsonSchema, uiSchema } = schema || {};
       jsonSchema && dispatch(setJsonSchema(jsonSchema))
       jsonSchema && dispatch(setUiSchema(uiSchema))
     }
     jsonSchema || loadSchema()
-  }, [jsonSchema, uiSchema, dispatch])
+  }, [formId, jsonSchema, uiSchema, dispatch])
 
   const {keyId, armoredPublicKey, publicKey} = useKeyContext();
 
@@ -72,7 +76,7 @@ function Form() {
         uuid: crypto.randomUUID(),
         keyId, armoredPublicKey
       };
-      postProjectStateCryptedData({cryptedDatum})
+      postProjectStateCryptedData({formId, cryptedDatum})
       //dispatch(setCryptedData(cryptedDatum));
       //console.info({cryptedDatum});
       setPublished(true);
