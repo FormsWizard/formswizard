@@ -1,5 +1,6 @@
 (ns formswizard.state
   (:require [formswizard.db.state :refer [db_ctx]]
+            [formswizard.lib.uuid :refer [uuid]]
             [formswizard.model.project-state.keys :as keys]
             [formswizard.model.project-state.schema :as schema]
             [formswizard.model.project-state.cryptedData :as cryptedData]
@@ -63,7 +64,7 @@
 (defn addCryptedDatum! [formId cryptedDatum]
   ;(swap! state update-in [formId :cryptedData] conj cryptedDatum)
   ((:tx db_ctx) [[:xtdb.api/put (assoc cryptedDatum
-                                       :xt/id (str "cryptedDatum_" (:uuid cryptedDatum))
+                                       :xt/id (str "cryptedDatum_" (uuid))
                                        :xt/spec ::cryptedData/cryptedDatum
                                        :formId formId)]]))
 

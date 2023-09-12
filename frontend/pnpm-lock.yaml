@@ -1004,7 +1004,7 @@ importers:
   packages-processing/import:
     dependencies:
       '@formswizard/api':
-        specifier: ^0.2.1
+        specifier: ^0.2.4
         version: link:../../packages/api
       '@types/react':
         specifier: ^18.2.21

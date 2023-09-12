@@ -1,6 +1,6 @@
 {
   "name": "@formswizard/api",
-  "version": "0.2.1",
+  "version": "0.2.4",
   "description": "Typescript client for OpenAPI specification of FormsWizard-REST-API (using openapi-typescript-codegen)",
   "keywords": ["openapi", "swagger", "rest", "api", "typescript", "codegen", "forms", "wizard", "json", "schema", "jsonschema", "uischema"],
   "license": "MIT",
@@ -16,7 +16,8 @@
   "scripts": {
     "build": "tsup index.ts --format esm,cjs --dts --external react",
     "dev": "npm run build --watch",
-    "lint": "eslint \"**/*.ts*\""
+    "lint": "eslint \"**/*.ts*\"",
+    "codegen": "npx openapi-typescript-codegen --input http://localhost:4000/openapi.json --output ./codegen"
   },
   "devDependencies": {
     "eslint": "^8.48.0",

@@ -155,9 +155,9 @@ export class DefaultService {
     ): CancelablePromise<{
         cryptedData?: Array<{
             data: string;
-            uuid: string;
             keyId: string;
             armoredPublicKey: string;
+            id: string;
         }>;
     }> {
         return __request(OpenAPI, {
@@ -180,7 +180,6 @@ export class DefaultService {
             formId: string;
             cryptedDatum: {
                 data: string;
-                uuid: string;
                 keyId: string;
                 armoredPublicKey: string;
             };

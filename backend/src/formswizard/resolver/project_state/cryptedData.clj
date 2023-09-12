@@ -5,13 +5,18 @@
             [formswizard.state :as state]
             [formswizard.lib.http :as http]))
 
+(defn xt->id [m]
+  (-> (assoc m :id (:xt/id m))
+      (dissoc :xt/id)))
+
 (def route
   {:get {:summary "get project-state.cryptedData"
          :parameters {:query (s/keys :req-un [::api/formId])}
          :responses {200 {:body (s/keys :opt-un [::cryptedData/cryptedData])}}
          :handler (fn [{{{:keys [formId]} :query} :parameters}]
                     {:status 200
-                     :body (state/getCryptedData formId)})}
+                     :body (-> (state/getCryptedData formId)
+                               (update :cryptedData #(map xt->id %)))})}
    :post {:summary "add project-state.cryptedData"
           :parameters {:body (s/keys :req-un [::api/formId ::cryptedData/cryptedDatum])}
           :responses http/ok-response

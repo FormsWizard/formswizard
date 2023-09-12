@@ -71,7 +71,6 @@ function Form() {
     if (encrypted && keyId && armoredPublicKey) {
       const cryptedDatum = {
         data: encrypted,
-        uuid: crypto.randomUUID(),
         keyId, armoredPublicKey
       };
       api.postProjectStateCryptedData({formId, cryptedDatum})
