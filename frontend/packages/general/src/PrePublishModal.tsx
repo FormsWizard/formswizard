@@ -19,12 +19,27 @@ export function PrePublishModal() {
   const [published, setPublished] = useState<boolean>(false)
   const [displayPublishButton, setDisplayPublishButton] = useState<boolean>(true)
 
-  const formId = useMemo(() => crypto.randomUUID(), []);
-  const formAdminToken = useMemo(() => crypto.randomUUID(), []);
-  const adminYjsKey = useMemo(() => crypto.randomUUID(), []);
+  const hash = typeof location != 'undefined' ? location.hash.slice(1) : '';
+  const hashParameters = !hash ? {} : Object.fromEntries(new URLSearchParams(hash) as any);
+
+  const formId = useMemo(() => hashParameters.formId || crypto.randomUUID(), [hashParameters.formId]);
+  const formAdminToken = useMemo(() => hashParameters.formAdminToken || crypto.randomUUID(), [hashParameters.formAdminToken]);
+  const dataKey = useMemo(() => crypto.randomUUID(), []);
+
+  const suffix = process.env.NODE_ENV === 'production' ? '.html' : '';
+  const urls = {
+    new: `#formId=${formId}&formAdminToken=${formAdminToken}`,
+    submit: `./submit${suffix}#formId=${formId}`,
+    edit: `./edit${suffix}#formId=${formId}&dataKey=${dataKey}`
+  };
+  const router = useRouter();
+  useEffect( () => { router.replace(urls.new)
+                           .catch((e) => { // workaround for https://github.com/vercel/next.js/issues/37362
+                                           if (!e.cancelled) throw e
+                                         })}, [] );
 
   const {publishPubKey} = usePublishPubKey({formId, formAdminToken})
-  const {jsonSchema, uiSchema} = useWizard()
+  const {jsonSchema, uiSchema} = useWizard()  // TODO when reopening a form with hashParameters.formId, we need initialize the formsDesigner-state from the backend
   const {publishSchema} = usePublishSchema({formId, formAdminToken, jsonSchema, uiSchema});
 
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
@@ -53,18 +68,6 @@ export function PrePublishModal() {
       }
     }
   }, [open]);
-
-  const suffix = process.env.NODE_ENV === 'production' ? '.html' : '';
-  const urls = {
-    new: `#formId=${formId}`,
-    submit: `./submit${suffix}#formId=${formId}`,
-    edit: `./edit${suffix}#formId=${formId}&dataKey=${adminYjsKey}&sessionKey=${adminYjsKey}`
-  };
-  const router = useRouter();
-  useEffect( () => { router.replace(urls.new)
-                           .catch((e) => { // workaround for https://github.com/vercel/next.js/issues/37362
-                                           if (!e.cancelled) throw e
-                                         })}, [] );
 
   return (
       <div>

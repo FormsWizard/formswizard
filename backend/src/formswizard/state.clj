@@ -14,11 +14,12 @@
   ;(if (get @state formId)
   ;  (= formAdminToken (get-in @state [formId :formAdminToken]))
   ;  (swap! state assoc-in [formId :formAdminToken] formAdminToken))
-  (let [correctFormAdminToken ((:q_id_unary db_ctx) '{:find [(pull ?e [:formAdminToken])]
-                                                      :where [[?e :xt/spec ::api/formAdminTokenRecord]
-                                                              [?e :formId ?formId]]
-                                                      :in [?formId]}
-                                                    formId)]
+  (let [correctFormAdminToken (:formAdminToken
+                                ((:q_id_unary db_ctx) '{:find [(pull ?e [:formAdminToken])]
+                                                        :where [[?e :xt/spec ::api/formAdminTokenRecord]
+                                                                [?e :formId ?formId]]
+                                                        :in [?formId]}
+                                                      formId))]
        (if correctFormAdminToken
            (= formAdminToken correctFormAdminToken)
            ((:tx db_ctx) [[:xtdb.api/put {:xt/id (str "formAdminToken_" formId)
