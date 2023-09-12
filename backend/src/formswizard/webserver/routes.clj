@@ -1,4 +1,4 @@
-(ns formswizard.routes
+(ns formswizard.webserver.routes
   (:require [formswizard.resolver.openapi.swagger :as swagger]
             [formswizard.resolver.openapi.openapi :as openapi]
             [formswizard.resolver.project-state.schema :as schema]

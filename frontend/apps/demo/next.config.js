@@ -1,6 +1,5 @@
 module.exports = (phase, { defaultConfig }) => {
   const githubDeployment = process.env.GITHUB_ACTIONS;
-  console.log({githubDeployment});
 
   const nextConfig = {
     ...defaultConfig,

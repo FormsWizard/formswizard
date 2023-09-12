@@ -1,0 +1,13 @@
+{:verbose false
+
+ :port 4000
+
+ :db-inmemory false
+ :db-dir "./data/xtdb/rocksdb"
+ ;:db-seed "./data/seed/example.edn"  ;; set it explicitly
+ :db-export-prefix "./data/export/"
+ :db-validate true
+
+ :frontend-base-url "http://localhost:4000"
+ :frontend-backend-base-url "http://localhost:4000"
+}

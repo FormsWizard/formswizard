@@ -41,16 +41,16 @@
 
 (deftest schema
   (testing "GET /project-state/schema — initially"
-    (is (= (-> (request :get "/project-state/schema")
+    (is (= (-> (request :get "/project-state/schema?formId=testform")
                app :body slurp)
            "{}")))
 
   (testing "POST /project-state/schema"
-    (is (= (-> (request :post "/project-state/schema") (json-body {:schema {:uiSchema "uis" :jsonSchema "jss"}})
+    (is (= (-> (request :post "/project-state/schema") (json-body {:formId "testform" :formAdminToken "testToken" :schema {:uiSchema "uis" :jsonSchema "jss"}})
                app :body slurp)
            "{\"result\":\"ok\"}")))
 
   (testing "GET /project-state/schema"
-    (is (= (-> (request :get "/project-state/schema")
+    (is (= (-> (request :get "/project-state/schema?formId=testform")
                app :body slurp)
            "{\"schema\":{\"uiSchema\":\"uis\",\"jsonSchema\":\"jss\"}}"))))

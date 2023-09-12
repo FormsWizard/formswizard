@@ -1,4 +1,4 @@
-(ns formswizard.server
+(ns formswizard.webserver.app
   (:require [reitit.ring :as ring]
             [reitit.http :as http]
             [reitit.coercion.spec]
@@ -13,10 +13,9 @@
             [reitit.http.interceptors.multipart :as multipart]
             [reitit.http.spec :as spec]
             [spec-tools.spell :as spell]
-            [ring.adapter.jetty :as jetty]
             [muuntaja.core :as m]            
             [sieppari.async.manifold]
-            [formswizard.routes :refer [routes]]
+            [formswizard.webserver.routes :refer [routes]]
             [formswizard.resolver.openapi.swagger :as swagger]
             [formswizard.resolver.openapi.openapi :as openapi]
             [simple-cors.reitit.interceptor :as cors]))
@@ -32,7 +31,7 @@
    (http/router
     routes
     {:reitit.http/default-options-endpoint (cors/make-default-options-endpoint cors-config)
-     :reitit.interceptor/transform dev/print-context-diffs ;; pretty context diffs
+     ;:reitit.interceptor/transform dev/print-context-diffs ;; pretty context diffs
      :validate spec/validate ;; enable spec validation for route data
      :reitit.spec/wrap spell/closed ;; strict top-level validation
      :exception pretty/exception
@@ -70,8 +69,3 @@
     (ring/create-default-handler))
    {:executor sieppari/executor
     :interceptors [(cors/cors-interceptor cors-config)]}))
-
-(defn start []
-  (let [port 4000]
-       (jetty/run-jetty #'app {:port port, :join? false})
-       (println "server running at port" port)))
