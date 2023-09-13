@@ -49,8 +49,9 @@ function Form() {
       const { pubKeys } = keys || {};
       pubKeys && dispatch(setPubKeys(pubKeys))
     }
-    pubKeys || loadKeys()
+    pubKeys?.length || loadKeys()
   }, [formId, pubKeys, dispatch])
+
 
   const jsonSchema = useAppSelector(selectJsonSchema);
   const uiSchema = useAppSelector(selectUiSchema);
@@ -78,7 +79,7 @@ function Form() {
       //console.info({cryptedDatum});
       setPublished(true);
     }
-  }, [data, setPublished])
+  }, [data, setPublished, pubKeys])
   //const cryptedDataPublished = useAppSelector(selectCryptedData);
 
   return (
