@@ -4,7 +4,7 @@
 
 ### Demo Server
 
-The easiest start is by testing our [**`Demo Instance`**](https://formswizard.github.io/formswizard/new)
+The easiest start is by testing our [**`Demo Instance`**](https://formswizard.winzlieb.eu/new.html)
 
 
 ### Local Build
