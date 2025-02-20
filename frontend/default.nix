@@ -38,9 +38,9 @@ in pkgs.mkShell {
     packages-processing/react-redux-yjs/node_modules/y-websocket/bin/server.js &
 
 
-    export NEXT_PUBLIC_BACKEND='https://backend.afg.mission-lifeline.de'
-    export NEXT_PUBLIC_SIGNALING='wss://yjs.winzlieb.eu'
-    export NEXT_PUBLIC_WS='wss://ws.afg.mission-lifeline.de'
+    export NEXT_PUBLIC_BACKEND='https://backend.formswizard.winzlieb.eu'
+    export NEXT_PUBLIC_SIGNALING='wss://signaling.formswizard.winzlieb.eu'
+    export NEXT_PUBLIC_WS='wss://ws.formswizard.winzlieb.eu'
 
 
     pnpm turbo run build --filter='./apps/*'
